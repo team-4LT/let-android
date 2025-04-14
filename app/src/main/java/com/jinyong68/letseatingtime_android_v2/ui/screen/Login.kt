@@ -1,7 +1,9 @@
 package com.jinyong68.letseatingtime_android_v2.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,13 +22,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jinyong68.letseatingtime_android_v2.ui.compose.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
 
@@ -37,34 +45,31 @@ fun Login(
     var text by remember { mutableStateOf("") }
 
     Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ){
-        OutlinedTextField(
-            modifier = Modifier
-                .width(344.dp)
-                .height(70.dp),
-            value = text,
-            onValueChange = { text = it },
-            placeholder = {
-                Text(
-                    fontSize = 16.sp,
-                    text = "아이디을 입력하세요",
-                    modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.CenterStart)
+        modifier = modifier.fillMaxSize().background(
+            brush = Brush.verticalGradient( // ✅ 세로 방향 그라데이션
+                colorStops = arrayOf(
+                    0.0f to Main, // 연한 회색
+                    0.25f to Color(0xFFFF8957)  // 진한 회색
                 )
-            },
-            shape = RoundedCornerShape(12.dp),
-            textStyle = TextStyle(
-                fontSize = 16.sp,
-                textAlign = TextAlign.Start,
-                lineHeight = 70.sp // ✅ 텍스트 입력 위치를 placeholder에 맞춤
-            ),
-            singleLine = true,
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Black,
-                unfocusedBorderColor = Grey,
             )
-        )
+        ),
+        contentAlignment = Alignment.BottomStart
+    ){
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.75f)
+                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                .background(White),
+            contentAlignment = Alignment.Center
+        ){
+            LoginTextField(
+                modifier = modifier,
+                text = "",
+                placeholder = ""
+            )
+        }
+
     }
 }
 
@@ -73,5 +78,10 @@ fun Login(
 fun View(
     modifier: Modifier = Modifier
 ) {
-    Login(modifier = modifier)
+    Box(
+
+    ) {
+        Login(modifier = modifier)
+    }
+
 }
