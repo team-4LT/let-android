@@ -43,7 +43,7 @@ fun LoginTextField(
         textStyle = TextStyle(
             fontSize = 16.sp,
             textAlign = TextAlign.Start,
-            lineHeight = 70.sp // ✅ 텍스트 입력 위치를 placeholder에 맞춤
+            lineHeight = 70.sp // 텍스트 입력 위치를 placeholder에 맞춤
         ),
         singleLine = true,
         colors = OutlinedTextFieldDefaults.colors(
