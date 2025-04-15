@@ -32,9 +32,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jinyong68.letseatingtime_android_v2.ui.compose.LoginTextField
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
@@ -70,7 +73,7 @@ fun Login(
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
@@ -110,7 +113,7 @@ fun Login(
                                 )
                             }
                         }
-                        Spacer(modifier = Modifier.height(120.dp))
+                        Spacer(modifier = Modifier.height(160.dp))
                         Button(
                             onClick = {},
                             modifier = Modifier
@@ -137,9 +140,14 @@ fun Login(
                                 Text("로그인", color = Color.White)
                             }
                         }
-
+                        Spacer(modifier=Modifier
+                            .height(100.dp))
+                        Text("Copyright 2025. ALT All rights reserved.",
+                            color= Grey,
+                            fontWeight= FontWeight.Thin,
+                            fontSize = 12.sp
+                            )
                     }
-
                 }
     }
     }
