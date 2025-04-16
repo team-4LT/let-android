@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -27,14 +26,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jinyong68.letseatingtime_android_v2.ui.compose.LoginTextField
+import com.jinyong68.letseatingtime_android_v2.ui.component.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
@@ -43,16 +41,8 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 fun Login(
     modifier : Modifier = Modifier,
 ) {
-    val idText: MutableState<String> = rememberSaveable {
-        mutableStateOf(
-            ""
-        )
-    }
-    val pwText: MutableState<String> = rememberSaveable {
-        mutableStateOf(
-            ""
-        )
-    }
+    var idText by remember { mutableStateOf("") }
+    var pwText by remember { mutableStateOf("") }
 
     Box(
         modifier = modifier
@@ -95,18 +85,20 @@ fun Login(
                             modifier = Modifier
                                 .height(142.dp)
                         )
-                        Box() {
+                        Box{
                             Column {
                                 LoginTextField(
                                     modifier = modifier,
                                     text = idText,
-                                    placeholder = { Text("아이디를 입력해주세요") }
+                                    placeholder = { Text("아이디를 입력해주세요") },
+                                    onValueChange = { idText = it }
                                 )
                                 Spacer(modifier = Modifier.height(8.dp));
                                 LoginTextField(
                                     modifier = modifier,
                                     text = pwText,
-                                    placeholder = { Text("비밀번호를 입력해주세요") }
+                                    placeholder = { Text("비밀번호를 입력해주세요") },
+                                    onValueChange = { pwText = it }
                                 )
                             }
                         }
