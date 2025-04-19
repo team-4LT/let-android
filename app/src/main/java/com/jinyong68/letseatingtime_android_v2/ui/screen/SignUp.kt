@@ -7,7 +7,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Register(modifier : Modifier = Modifier,){
+fun SignUp(modifier : Modifier = Modifier,){
     val nameText: MutableState<String> = rememberSaveable {
         mutableStateOf(
             ""

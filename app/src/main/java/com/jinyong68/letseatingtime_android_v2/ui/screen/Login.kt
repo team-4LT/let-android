@@ -96,103 +96,111 @@ fun Login(
                         .fillMaxHeight(0.75f)
                         .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                         .background(White)
-                        .padding(vertical = 40.dp) // 패딩
+                        .padding(vertical = 40.dp)
                     ,
                     contentAlignment = Alignment.TopCenter,
                 )
-                    {
-                    Column (
+                {
+                    Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.SpaceBetween
-                    ){
-                        Image(
-                            painter = painterResource(R.drawable.logo),
-                            contentDescription = "로고",
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                            .padding(1.dp)
-                                .width(142.5.dp)
-                                .height(60.dp)
-                        )
-                        Box{ // 로그인 박스 칸
-                            Column(
-                                horizontalAlignment = Alignment.End,
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                LoginTextField(
-                                    modifier = modifier,
-                                    text = idText,
-                                    placeholder = { Text("아이디를 입력해주세요") }
-                                )
-                                LoginTextField(
-                                    modifier = modifier,
-                                    text = pwText,
-                                    placeholder = { Text("비밀번호를 입력해주세요") }
-                                )
-                                Spacer(modifier = Modifier.height(5.dp));
-                                Text(
-                                    text = "비밀번호가 올바르지 않습니다.",
-                                    style = TextStyle(
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight(400),
-                                        color = Main,
-                                        textAlign = TextAlign.Right,
-                                    )
-                                )
-                            }
-                        }
-                        Box( // 로그인 박스
-                            modifier = Modifier
-                                .clickable {}
-                                .width(344.dp)
-                                .height(58.dp)
-                                .background(
-                                    brush = Brush.verticalGradient(
-                                        colorStops = arrayOf(
-                                            0.0f to Main,
-                                            1.0f to Main2
-                                        )
-                                    ),
-                                    shape = RoundedCornerShape(12.dp)
-                                ),
-                            contentAlignment = Alignment.Center
+                        verticalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxHeight()
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Text(
-                                text = "로그인",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight(500),
-                                    color = Color.White,
-                                    textAlign = TextAlign.Center
-                                )
-
+                            Image(
+                                painter = painterResource(R.drawable.logo),
+                                contentDescription = "로고",
+                                contentScale = ContentScale.Fit,
+                                modifier = Modifier
+                                    .padding(1.dp)
+                                    .width(142.5.dp)
+                                    .height(60.dp)
                             )
-
-                        }
-                        Box { // 회원가입
-                            Row (verticalAlignment = Alignment.CenterVertically)
-                            {
-                                Text("계정이 없으신가요? ")
-                                TextButton(
-                                    modifier = Modifier.
-                                    alignByBaseline(),
-                                    onClick = {
-                                        println("안녕하세여")
-                                    },
-                                    contentPadding = PaddingValues(0.dp)
+                            Box { // 로그인 박스 칸
+                                Column(
+                                    horizontalAlignment = Alignment.End,
+                                    verticalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Text("회원가입", color = Main)
+                                    LoginTextField(
+                                        modifier = modifier,
+                                        text = idText,
+                                        placeholder = { Text("아이디를 입력해주세요") }
+                                    )
+                                    LoginTextField(
+                                        modifier = modifier,
+                                        text = pwText,
+                                        placeholder = { Text("비밀번호를 입력해주세요") }
+                                    )
+                                    Spacer(modifier = Modifier.height(5.dp));
+                                    Text(
+                                        text = "비밀번호가 올바르지 않습니다.",
+                                        style = TextStyle(
+                                            fontSize = 16.sp,
+                                            fontWeight = FontWeight(400),
+                                            color = Main,
+                                            textAlign = TextAlign.Right,
+                                        )
+                                    )
                                 }
                             }
                         }
-                        Text("Copyright 2025. ALT All rights reserved.",
-                            color= Grey,
-                            fontWeight= FontWeight.Thin,
-                            fontSize = 12.sp
-                        )
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Box( // 로그인 박스
+                                modifier = Modifier
+                                    .clickable {}
+                                    .width(344.dp)
+                                    .height(58.dp)
+                                    .padding(start = 13.dp, top = 0.dp, end = 13.dp, bottom = 0.dp)
+                                    .background(
+                                        brush = Brush.verticalGradient(
+                                            colorStops = arrayOf(
+                                                0.0f to Main,
+                                                1.0f to Main2
+                                            )
+                                        ),
+                                        shape = RoundedCornerShape(12.dp)
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = "로그인",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight(500),
+                                        color = Color.White,
+                                        textAlign = TextAlign.Center
+                                    )
+
+                                )
+                            }
+                            Box { // 회원가입
+                                Row(verticalAlignment = Alignment.CenterVertically)
+                                {
+                                    Text("계정이 없으신가요? ")
+                                    TextButton(
+                                        modifier = Modifier.alignByBaseline(),
+                                        onClick = {
+                                            println("안녕하세여")
+                                        },
+                                        contentPadding = PaddingValues(0.dp)
+                                    ) {
+                                        Text("회원가입", color = Main)
+                                    }
+                                }
+                            }
+                            Text(
+                                "Copyright 2025. ALT All rights reserved.",
+                                color = Grey,
+                                fontWeight = FontWeight.Thin,
+                                fontSize = 12.sp
+                            )
+                        }
                     }
-                    }
-                        Spacer(modifier=Modifier.height(5.dp))
+                }
     }
     }
 
