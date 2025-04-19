@@ -1,22 +1,30 @@
 package com.jinyong68.letseatingtime_android_v2.ui.screen
 
+import androidx.compose.foundation.BorderStroke
 import com.jinyong68.letseatingtime_android_v2.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -32,13 +40,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jinyong68.letseatingtime_android_v2.ui.compose.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Main2
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
 
@@ -79,76 +90,109 @@ fun Login(
                 .align(Alignment.TopCenter)
         )
 
-                Box(
+                Box( // 큰 흰색 박스
                     modifier = modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.75f)
                         .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                        .background(White),
+                        .background(White)
+                        .padding(vertical = 40.dp) // 패딩
+                    ,
                     contentAlignment = Alignment.TopCenter,
                 )
                     {
                     Column (
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
                     ){
                         Image(
                             painter = painterResource(R.drawable.logo),
                             contentDescription = "로고",
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
-                                .height(142.dp)
+                            .padding(1.dp)
+                                .width(142.5.dp)
+                                .height(60.dp)
                         )
-                        Box() {
-                            Column {
+                        Box{ // 로그인 박스 칸
+                            Column(
+                                horizontalAlignment = Alignment.End,
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
                                 LoginTextField(
                                     modifier = modifier,
                                     text = idText,
                                     placeholder = { Text("아이디를 입력해주세요") }
                                 )
-                                Spacer(modifier = Modifier.height(8.dp));
                                 LoginTextField(
                                     modifier = modifier,
                                     text = pwText,
                                     placeholder = { Text("비밀번호를 입력해주세요") }
                                 )
+                                Spacer(modifier = Modifier.height(5.dp));
+                                Text(
+                                    text = "비밀번호가 올바르지 않습니다.",
+                                    style = TextStyle(
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight(400),
+                                        color = Main,
+                                        textAlign = TextAlign.Right,
+                                    )
+                                )
                             }
                         }
-                        Spacer(modifier = Modifier.height(160.dp))
-                        Button(
-                            onClick = {},
+                        Box( // 로그인 박스
                             modifier = Modifier
+                                .clickable {}
                                 .width(344.dp)
-                                .height(60.dp),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                            contentPadding = PaddingValues()
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(
-                                        brush = Brush.verticalGradient(
-                                            colorStops = arrayOf(
-                                                0.0f to Color(0xFFFF3939),
-                                                1.0f to Color(0xFFFF8957)
-                                            )
-                                        ),
-                                        shape = RoundedCornerShape(12.dp)
+                                .height(58.dp)
+                                .background(
+                                    brush = Brush.verticalGradient(
+                                        colorStops = arrayOf(
+                                            0.0f to Main,
+                                            1.0f to Main2
+                                        )
                                     ),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("로그인", color = Color.White)
+                                    shape = RoundedCornerShape(12.dp)
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "로그인",
+                                style = TextStyle(
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight(500),
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center
+                                )
+
+                            )
+
+                        }
+                        Box { // 회원가입
+                            Row (verticalAlignment = Alignment.CenterVertically)
+                            {
+                                Text("계정이 없으신가요? ")
+                                TextButton(
+                                    modifier = Modifier.
+                                    alignByBaseline(),
+                                    onClick = {
+                                        println("안녕하세여")
+                                    },
+                                    contentPadding = PaddingValues(0.dp)
+                                ) {
+                                    Text("회원가입", color = Main)
+                                }
                             }
                         }
-                        Spacer(modifier=Modifier
-                            .height(100.dp))
                         Text("Copyright 2025. ALT All rights reserved.",
                             color= Grey,
                             fontWeight= FontWeight.Thin,
                             fontSize = 12.sp
-                            )
+                        )
                     }
-                }
+                    }
+                        Spacer(modifier=Modifier.height(5.dp))
     }
     }
 
