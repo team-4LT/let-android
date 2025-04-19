@@ -1,4 +1,4 @@
-package com.jinyong68.letseatingtime_android_v2.ui.compose
+package com.jinyong68.letseatingtime_android_v2.ui.compose.TextField
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
@@ -16,7 +16,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
