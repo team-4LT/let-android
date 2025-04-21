@@ -1,28 +1,23 @@
 package com.jinyong68.letseatingtime_android_v2.ui.screen
-
+import android.util.Log
 import com.jinyong68.letseatingtime_android_v2.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,9 +25,18 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jinyong68.letseatingtime_android_v2.ui.component.LoginTextField
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
+import com.jinyong68.letseatingtime_android_v2.ui.compose.ButtonField
+import com.jinyong68.letseatingtime_android_v2.ui.compose.TextField.LoginTextField
+import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpIdStatus
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
@@ -40,10 +44,10 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 @Composable
 fun Login(
     modifier : Modifier = Modifier,
+    onMoveScreen : (String) -> Unit = {}
 ) {
-    var idText by remember { mutableStateOf("") }
-    var pwText by remember { mutableStateOf("") }
-
+    val idText = rememberSaveable { mutableStateOf("") }
+    val pwText = rememberSaveable { mutableStateOf("") }
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -60,78 +64,75 @@ fun Login(
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
         )
 
-                Box(
+                Box( // 큰 흰색 박스
                     modifier = modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.75f)
                         .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                        .background(White),
+                        .background(White)
+                        .padding(vertical = 40.dp)
+                    ,
                     contentAlignment = Alignment.TopCenter,
                 )
-                    {
-                    Column (
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ){
-                        Image(
-                            painter = painterResource(R.drawable.logo),
-                            contentDescription = "로고",
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .height(142.dp)
-                        )
-                        Box{
-                            Column {
-                                LoginTextField(
-                                    modifier = modifier,
-                                    text = idText,
-                                    placeholder = { Text("아이디를 입력해주세요") },
-                                    onValueChange = { idText = it }
-                                )
-                                Spacer(modifier = Modifier.height(8.dp));
-                                LoginTextField(
-                                    modifier = modifier,
-                                    text = pwText,
-                                    placeholder = { Text("비밀번호를 입력해주세요") },
-                                    onValueChange = { pwText = it }
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(120.dp))
-                        Button(
-                            onClick = {},
-                            modifier = Modifier
-                                .width(344.dp)
-                                .height(60.dp),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                            contentPadding = PaddingValues()
+                {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxHeight()
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Box(
+                            Image(
+                                painter = painterResource(R.drawable.logo),
+                                contentDescription = "로고",
+                                contentScale = ContentScale.Fit,
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(
-                                        brush = Brush.verticalGradient(
-                                            colorStops = arrayOf(
-                                                0.0f to Color(0xFFFF3939),
-                                                1.0f to Color(0xFFFF8957)
-                                            )
-                                        ),
-                                        shape = RoundedCornerShape(12.dp)
-                                    ),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("로그인", color = Color.White)
+                                    .padding(1.dp)
+                                    .width(142.5.dp)
+                                    .height(60.dp)
+                            )
+                            Box { // 로그인 박스 칸
+                                Column(
+                                    horizontalAlignment = Alignment.End,
+                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    LoginTextField(
+                                        modifier = modifier,
+                                        text = idText,
+                                        placeholder = { Text("아이디를 입력하세요") }
+                                    )
+                                    LoginTextField(
+                                        modifier = modifier,
+                                        text = pwText,
+                                        placeholder = { Text("비밀번호를 입력하세요") }
+                                    )
+                                    Text(
+                                        text = "비밀번호가 올바르지 않습니다.",
+                                        style = TextStyle(
+                                            fontSize = 16.sp,
+                                            fontWeight = FontWeight(400),
+                                            color = Main,
+                                            textAlign = TextAlign.Right,
+                                        )
+                                    )
+                                }
                             }
                         }
-
+                        ButtonField(modifier = modifier,
+                            buttonText = "로그인",
+                            buttonAction = { Log.d("안녕하세요","안녕하세요")},
+                            questionText = "계정이 없으신가요?",
+                            questionActionText = "회원가입",
+                            questionAction = { onMoveScreen(ScreenNavigate.SIGNUPINFOSTATUS.name)},
+                        )
                     }
-
                 }
     }
     }
@@ -144,7 +145,7 @@ fun View(
     Box(
 
     ) {
-        Login(modifier = modifier)
+        Login(modifier = modifier, onMoveScreen = {})
     }
 
 }
