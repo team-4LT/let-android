@@ -1,8 +1,8 @@
 [versions]
 agp = "8.7.3"
 hiltAndroid = "2.56.1"
-hiltCompiler = "2.51.1"
-hiltCompilerVersion = "2.51.1"
+hiltCompiler = "2.56.1"
+hiltCompilerVersion = "2.56.1"
 kotlin = "2.0.21"
 coreKtx = "1.10.1"
 junit = "4.13.2"
@@ -12,6 +12,7 @@ lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.09.00"
 lifecycleViewmodelKtx = "2.8.7"
+navigationCompose = "2.8.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -20,8 +21,7 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 hilt-compiler-v2481 = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompilerVersion" }
-navigationCompose = "2.8.9"
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+navigationCompose = "androidx.navigation:navigation-compose:2.8.9"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
