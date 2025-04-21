@@ -21,16 +21,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jinyong68.letseatingtime_android_v2.R
+import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.compose.ButtonField
 import com.jinyong68.letseatingtime_android_v2.ui.compose.TextField.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
 @Composable
-fun SignUpIdStatus(modifier: Modifier = Modifier) { // 인적사항 작성하는 곳
-    val nameText = rememberSaveable { mutableStateOf("") }
-    val numberText = rememberSaveable { mutableStateOf("") }
-    val schoolID = rememberSaveable { mutableStateOf("") }
+fun SignUpIdStatus(
+    modifier: Modifier = Modifier,
+    onMoveScreen: (String) -> Unit
+                   ) { // 회원정보 입력하는 곳
+    val idText = rememberSaveable { mutableStateOf("") }
+    val pwText = rememberSaveable { mutableStateOf("") }
+    val rePwText = rememberSaveable { mutableStateOf("") }
 
     Box(
         modifier = modifier
@@ -92,17 +96,17 @@ fun SignUpIdStatus(modifier: Modifier = Modifier) { // 인적사항 작성하는
                             ) {
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = nameText,
+                                    text = idText,
                                     placeholder = { Text("이름을 입력하세요") }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = numberText,
+                                    text = pwText,
                                     placeholder = { Text("학번을 입력하세요.") }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = schoolID,
+                                    text = rePwText,
                                     placeholder = { Text("학교ID를 입력하세요.") }
                                 )
                                 Text(
@@ -119,10 +123,10 @@ fun SignUpIdStatus(modifier: Modifier = Modifier) { // 인적사항 작성하는
                     }
                     ButtonField(modifier = modifier,
                         buttonText = "다음",
-                        buttonAction = {println("안녕하세요")},
+                        buttonAction = {onMoveScreen(ScreenNavigate.HOME.name)},
                         questionText = "이미 계정이 있으신가요?",
                         questionActionText = "로그인",
-                        questionAction = {println("안녕")}
+                        questionAction = {onMoveScreen(ScreenNavigate.LOGIN.name)},
                     )
                 }
             }

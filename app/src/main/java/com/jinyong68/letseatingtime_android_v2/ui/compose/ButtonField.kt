@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
+import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpIdStatus
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 
@@ -22,7 +24,7 @@ fun ButtonField(
     buttonAction : ()->Unit,
     questionText:String,
     questionActionText:String,
-    questionAction:()->Unit,
+    questionAction: ()->Unit,
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
