@@ -97,17 +97,17 @@ fun SignUpInfoStatus(
                                 LoginTextField(
                                     modifier = modifier,
                                     text = nameText,
-                                    placeholder = { Text("아이디를 입력하세요") }
+                                    placeholder = { Text("이름을 입력하세요") }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
                                     text = numberText,
-                                    placeholder = { Text("비밀번호를 입력하세요.") }
+                                    placeholder = { Text("학번을 입력하세요.") }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
                                     text = schoolID,
-                                    placeholder = { Text("비밀번호를 재입력하세요.") }
+                                    placeholder = { Text("학교ID를 입력하세요.") }
                                 )
                                 Text(
                                     text = "비밀번호가 올바르지 않습니다.",

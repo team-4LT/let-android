@@ -97,17 +97,17 @@ fun SignUpIdStatus(
                                 LoginTextField(
                                     modifier = modifier,
                                     text = idText,
-                                    placeholder = { Text("이름을 입력하세요") }
+                                    placeholder = { Text("아이디를 입력하세요") }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
                                     text = pwText,
-                                    placeholder = { Text("학번을 입력하세요.") }
+                                    placeholder = { Text("비밀번호를 입력하세요.") }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
                                     text = rePwText,
-                                    placeholder = { Text("학교ID를 입력하세요.") }
+                                    placeholder = { Text("비밀번호를 재입력하세요.") }
                                 )
                                 Text(
                                     text = "비밀번호가 올바르지 않습니다.",
@@ -122,7 +122,7 @@ fun SignUpIdStatus(
                         }
                     }
                     ButtonField(modifier = modifier,
-                        buttonText = "다음",
+                        buttonText = "회원가입",
                         buttonAction = {onMoveScreen(ScreenNavigate.HOME.name)},
                         questionText = "이미 계정이 있으신가요?",
                         questionActionText = "로그인",
