@@ -127,7 +127,7 @@ fun Login(
                         }
                         ButtonField(modifier = modifier,
                             buttonText = "로그인",
-                            buttonAction = { Log.d("안녕하세요","안녕하세요")},
+                            buttonAction = { onMoveScreen(ScreenNavigate.HOME.name)},
                             questionText = "계정이 없으신가요?",
                             questionActionText = "회원가입",
                             questionAction = { onMoveScreen(ScreenNavigate.SIGNUPINFOSTATUS.name)},
