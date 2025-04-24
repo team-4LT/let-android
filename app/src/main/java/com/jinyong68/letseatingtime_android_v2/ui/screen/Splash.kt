@@ -39,7 +39,7 @@ fun SplashScreen(
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.let_logo3), // 각진 PNG 이미지 경로
+            painter = painterResource(id = R.drawable.logo), // 각진 PNG 이미지 경로
             contentDescription = "Splash Logo",
             modifier = Modifier.size(200.dp)
         )

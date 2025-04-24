@@ -43,10 +43,14 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import java.io.File
 import coil.compose.AsyncImage
+import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 
 
 @Composable
-fun MealScan(modifier: Modifier = Modifier) {
+fun MealScan(
+    modifier: Modifier = Modifier,
+    onMoveScreen: (String) -> Unit
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -170,6 +174,7 @@ fun MealScan(modifier: Modifier = Modifier) {
                     Button(onClick = {
                         // 이 사진 사용
                         // 예: 저장 또는 다음 화면으로 이동
+                        onMoveScreen(ScreenNavigate.HOME.name)
                     }) {
                         Text("사용")
                     }

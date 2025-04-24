@@ -32,25 +32,33 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = ScreenNavigate.SPLASH.name) {
                 composable(route = ScreenNavigate.SPLASH.name) {
-                    SplashScreen( onMoveScreen = { destination -> navController.navigate(destination) } )
+                    SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
                 }
                 composable(route = ScreenNavigate.LOGIN.name) {
-                    Login(modifier = Modifier, onMoveScreen = { destination -> navController.navigate(destination)})
+                    Login(
+                        modifier = Modifier,
+                        onMoveScreen = { destination -> navController.navigate(destination) })
                 }
                 composable(route = ScreenNavigate.SIGNUPIDSTATUS.name) {
-                    SignUpIdStatus(modifier = Modifier, onMoveScreen = {destination -> navController.navigate(destination)})
+                    SignUpIdStatus(
+                        modifier = Modifier,
+                        onMoveScreen = { destination -> navController.navigate(destination) })
                 }
                 composable(route = ScreenNavigate.SIGNUPINFOSTATUS.name) {
-                    SignUpInfoStatus(modifier = Modifier, onMoveScreen = { destination -> navController.navigate(destination)})
+                    SignUpInfoStatus(
+                        modifier = Modifier,
+                        onMoveScreen = { destination -> navController.navigate(destination) })
                 }
                 composable(route = ScreenNavigate.HOME.name) {
                     Home(
                         modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) })
+                        onMoveScreen = { destination -> navController.navigate(destination) }
+                    )
                 }
                 composable(route = ScreenNavigate.MEALSCAN.name) {
                     MealScan(
-                        modifier = Modifier
+                        modifier = Modifier,
+                        onMoveScreen = { destination -> navController.navigate(destination) }
                     )
                 }
             }
