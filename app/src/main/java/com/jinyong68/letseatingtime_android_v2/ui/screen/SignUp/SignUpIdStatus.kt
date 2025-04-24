@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
-import com.jinyong68.letseatingtime_android_v2.ui.compose.ButtonField
-import com.jinyong68.letseatingtime_android_v2.ui.compose.TextField.LoginTextField
+import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
+import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 

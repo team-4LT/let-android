@@ -1,9 +1,7 @@
 package com.jinyong68.letseatingtime_android_v2.ui.screen
-import android.util.Log
 import com.jinyong68.letseatingtime_android_v2.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,13 +28,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jinyong68.letseatingtime_android_v2.ui.component.LoginTextField
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
-import com.jinyong68.letseatingtime_android_v2.ui.compose.ButtonField
-import com.jinyong68.letseatingtime_android_v2.ui.compose.TextField.LoginTextField
-import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpIdStatus
+import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
+import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
