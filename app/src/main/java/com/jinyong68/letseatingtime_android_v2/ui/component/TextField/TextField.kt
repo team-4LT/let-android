@@ -1,4 +1,4 @@
-package com.jinyong68.letseatingtime_android_v2.ui.compose.TextField
+package com.jinyong68.letseatingtime_android_v2.ui.component.TextField
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
@@ -24,6 +24,7 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 fun LoginTextField(
     modifier: Modifier = Modifier,
     text: MutableState<String>,
+    onValueChanged: (String) -> Unit,
     placeholder: @Composable (() -> Unit)?,
     keyboardType: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
 ) {
@@ -31,10 +32,10 @@ fun LoginTextField(
         modifier = modifier
             .width(344.dp)
             .height(70.dp)
-            .padding(start = 13.dp, top = 0.dp, end = 13.dp, bottom = 0.dp)
+            .padding(start = 13.dp)
             .background(White),
         value = text.value,
-        onValueChange = { inputText: String -> text.value = inputText },
+        onValueChange = onValueChanged,
         placeholder = placeholder,
         shape = RoundedCornerShape(12.dp),
         textStyle = TextStyle(

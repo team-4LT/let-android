@@ -1,6 +1,7 @@
 package com.jinyong68.letseatingtime_android_v2.ui.screen
 
 import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -43,10 +44,21 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import java.io.File
 import coil.compose.AsyncImage
+import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
+import android.content.Intent
+import android.provider.Settings
+import androidx.activity.compose.LocalActivity
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.DisposableEffect
+import com.jinyong68.letseatingtime_android_v2.MainActivity
 
 
 @Composable
-fun MealScan(modifier: Modifier = Modifier) {
+fun MealScan(
+    modifier: Modifier = Modifier,
+    onMoveScreen: (String) -> Unit
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -62,12 +74,31 @@ fun MealScan(modifier: Modifier = Modifier) {
         )
     }
 
+    var showPermissionDialog by remember { mutableStateOf(false) }
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { granted ->
             hasCameraPermission.value = granted
+            if (!granted) {
+                showPermissionDialog = true
+            }
         }
     )
+
+    //가로, 세로 회전 허용
+    val activity = LocalActivity.current
+
+    LaunchedEffect(Unit) {
+        (activity as? MainActivity)?.enableOrientationSensor()
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            // 화면 빠져나갈 때 다시 세로 고정
+            (activity as? MainActivity)?.lockPortrait()
+        }
+    }
 
     LaunchedEffect(key1 = true) {
         launcher.launch(Manifest.permission.CAMERA)
@@ -170,11 +201,37 @@ fun MealScan(modifier: Modifier = Modifier) {
                     Button(onClick = {
                         // 이 사진 사용
                         // 예: 저장 또는 다음 화면으로 이동
+                        onMoveScreen(ScreenNavigate.HOME.name)
                     }) {
                         Text("사용")
                     }
                 }
             }
         }
+
+        if (showPermissionDialog) {
+            AlertDialog(
+                onDismissRequest = { showPermissionDialog = false },
+                title = { Text("카메라 권한 필요") },
+                text = { Text("이 기능을 사용하려면 카메라 권한이 필요합니다. 설정에서 권한을 허용해주세요.") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        showPermissionDialog = false
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                            data = Uri.parse("package:${context.packageName}")
+                        }
+                        context.startActivity(intent)
+                    }) {
+                        Text("설정으로 이동")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showPermissionDialog = false }) {
+                        Text("취소")
+                    }
+                }
+            )
+        }
+
     }
 }
