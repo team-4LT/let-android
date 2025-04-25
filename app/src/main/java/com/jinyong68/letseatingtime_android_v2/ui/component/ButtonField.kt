@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jinyong68.letseatingtime_android_v2.ui.compose.LoginButton
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 

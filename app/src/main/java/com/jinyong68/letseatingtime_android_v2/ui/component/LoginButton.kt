@@ -1,4 +1,4 @@
-package com.jinyong68.letseatingtime_android_v2.ui.compose
+package com.jinyong68.letseatingtime_android_v2.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

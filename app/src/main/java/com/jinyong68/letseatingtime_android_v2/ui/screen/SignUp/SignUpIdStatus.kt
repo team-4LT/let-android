@@ -2,7 +2,15 @@ package com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,13 +33,16 @@ import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
 
 @Composable
 fun SignUpIdStatus(
     modifier: Modifier = Modifier,
-    onMoveScreen: (String) -> Unit
-                   ) { // 회원정보 입력하는 곳
+    onMoveScreen: (String) -> Unit,
+    viewModel: SignUpViewModel
+) { // 회원정보 입력하는 곳
     val idText = rememberSaveable { mutableStateOf("") }
     val pwText = rememberSaveable { mutableStateOf("") }
     val rePwText = rememberSaveable { mutableStateOf("") }
@@ -97,17 +108,20 @@ fun SignUpIdStatus(
                                 LoginTextField(
                                     modifier = modifier,
                                     text = idText,
-                                    placeholder = { Text("이름을 입력하세요") }
+                                    onValueChanged = { idText.value = it },
+                                    placeholder = { Text("이름을 입력하세요", color = Placeholder) }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
                                     text = pwText,
-                                    placeholder = { Text("학번을 입력하세요.") }
+                                    onValueChanged = { pwText.value = it },
+                                    placeholder = { Text("학번을 입력하세요.", color = Placeholder) }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
                                     text = rePwText,
-                                    placeholder = { Text("학교ID를 입력하세요.") }
+                                    onValueChanged = { rePwText.value = it },
+                                    placeholder = { Text("학교ID를 입력하세요.", color = Placeholder) }
                                 )
                                 Text(
                                     text = "비밀번호가 올바르지 않습니다.",
@@ -121,12 +135,13 @@ fun SignUpIdStatus(
                             }
                         }
                     }
-                    ButtonField(modifier = modifier,
+                    ButtonField(
+                        modifier = modifier,
                         buttonText = "다음",
-                        buttonAction = {onMoveScreen(ScreenNavigate.HOME.name)},
+                        buttonAction = { onMoveScreen(ScreenNavigate.HOME.name) },
                         questionText = "이미 계정이 있으신가요?",
                         questionActionText = "로그인",
-                        questionAction = {onMoveScreen(ScreenNavigate.LOGIN.name)},
+                        questionAction = { onMoveScreen(ScreenNavigate.LOGIN.name) },
                     )
                 }
             }

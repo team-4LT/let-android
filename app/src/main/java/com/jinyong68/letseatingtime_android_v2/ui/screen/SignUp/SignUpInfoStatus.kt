@@ -2,7 +2,15 @@ package com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,16 +33,19 @@ import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
 
 @Composable
 fun SignUpInfoStatus(
     modifier: Modifier = Modifier,
-    onMoveScreen: (String) -> Unit
+    onMoveScreen: (String) -> Unit,
+    viewModel: SignUpViewModel
 ) { // 인적사항 작성하는 곳
     val nameText = rememberSaveable { mutableStateOf("") }
-    val numberText = rememberSaveable { mutableStateOf("") }
-    val schoolID = rememberSaveable { mutableStateOf("") }
+    val studentIdText = rememberSaveable { mutableStateOf("") }
+    val schoolId = rememberSaveable { mutableStateOf("") }
 
     Box(
         modifier = modifier
@@ -97,17 +108,20 @@ fun SignUpInfoStatus(
                                 LoginTextField(
                                     modifier = modifier,
                                     text = nameText,
-                                    placeholder = { Text("아이디를 입력하세요") }
+                                    onValueChanged = { nameText.value = it },
+                                    placeholder = { Text("아이디를 입력하세요", color = Placeholder) }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = numberText,
-                                    placeholder = { Text("비밀번호를 입력하세요.") }
+                                    text = studentIdText,
+                                    onValueChanged = { studentIdText.value  = it },
+                                    placeholder = { Text("비밀번호를 입력하세요.", color = Placeholder) }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = schoolID,
-                                    placeholder = { Text("비밀번호를 재입력하세요.") }
+                                    text = schoolId,
+                                    onValueChanged = { schoolId.value = it },
+                                    placeholder = { Text("비밀번호를 재입력하세요.", color = Placeholder) }
                                 )
                                 Text(
                                     text = "비밀번호가 올바르지 않습니다.",
@@ -121,12 +135,13 @@ fun SignUpInfoStatus(
                             }
                         }
                     }
-                    ButtonField(modifier = modifier,
+                    ButtonField(
+                        modifier = modifier,
                         buttonText = "다음",
-                        buttonAction = {onMoveScreen(ScreenNavigate.SIGNUPIDSTATUS.name)},
+                        buttonAction = { onMoveScreen(ScreenNavigate.SIGNUPIDSTATUS.name) },
                         questionText = "이미 계정이 있으신가요?",
                         questionActionText = "로그인",
-                        questionAction = {onMoveScreen(ScreenNavigate.LOGIN.name)},
+                        questionAction = { onMoveScreen(ScreenNavigate.LOGIN.name) },
                     )
                 }
             }
