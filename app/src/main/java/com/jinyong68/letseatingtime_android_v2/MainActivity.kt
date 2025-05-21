@@ -18,6 +18,7 @@ import com.jinyong68.letseatingtime_android_v2.ui.screen.MealScan
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpIdStatus
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpInfoStatus
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SplashScreen
+import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
 
@@ -69,7 +70,8 @@ class MainActivity : ComponentActivity() {
                 composable(route = ScreenNavigate.HOME.name) {
                     Home(
                         modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) }
+                        onMoveScreen = { destination -> navController.navigate(destination) },
+                        viewModel = HomeViewModel()
                     )
                 }
                 composable(route = ScreenNavigate.MEALSCAN.name) {
