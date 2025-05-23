@@ -1,6 +1,7 @@
 package com.jinyong68.letseatingtime_android_v2.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jinyong68.letseatingtime_android_v2.R
-import com.jinyong68.letseatingtime_android_v2.ui.component.Home.WorkoutCard
+import com.jinyong68.letseatingtime_android_v2.ui.component.Workout.WorkoutCard
+import com.jinyong68.letseatingtime_android_v2.ui.component.Workout.WorkoutModal
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
@@ -60,7 +62,9 @@ fun Workout(
                 Text(
                     text = "난이도 설정",
                     style= AppTypography.titleLarge,
-                    color = Black
+                    color = Black,
+                    modifier = modifier.
+                        clickable{viewModel.toggleModal()}
                 )
             }
             Column(
@@ -78,6 +82,18 @@ fun Workout(
                     title = "달리기 3분 뛰기",
                     description = "달리기 10분을 뜁니다.")
             }
+        }
+        if (viewModel.isModalClicked) {
+            WorkoutModal(
+                selectedLevel = viewModel.level,
+                onSelectLevel = {
+                    viewModel.updateLevel(it)
+                    viewModel.updateModalClicked(false)
+                },
+                onDismiss = {
+                    viewModel.updateModalClicked(false)
+                }
+            )
         }
     }
 }
