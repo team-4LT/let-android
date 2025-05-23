@@ -29,7 +29,7 @@ fun WorkoutCard(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth()
             .height(70.dp)
             .clip(RoundedCornerShape(8.dp))
     ) {
