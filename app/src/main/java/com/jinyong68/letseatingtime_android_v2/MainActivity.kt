@@ -7,20 +7,20 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import coil.util.Logger
 import com.jinyong68.letseatingtime_android_v2.ui.screen.Home
 import com.jinyong68.letseatingtime_android_v2.ui.screen.Login
 import com.jinyong68.letseatingtime_android_v2.ui.screen.MealScan
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpIdStatus
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpInfoStatus
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SplashScreen
+import com.jinyong68.letseatingtime_android_v2.ui.screen.Workout
 import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
+import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 
 enum class ScreenNavigate {
     SPLASH,
@@ -29,6 +29,7 @@ enum class ScreenNavigate {
     SIGNUPIDSTATUS,
     HOME,
     MEALSCAN,
+    WORKOUT
 }
 
 class MainActivity : ComponentActivity() {
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
                 lockPortrait()
             }
 
-            NavHost(navController = navController, startDestination = ScreenNavigate.HOME.name) {
+            NavHost(navController = navController, startDestination = ScreenNavigate.WORKOUT.name) {
                 composable(route = ScreenNavigate.SPLASH.name) {
                     SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
                 }
@@ -78,6 +79,13 @@ class MainActivity : ComponentActivity() {
                     MealScan(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) }
+                    )
+                }
+                composable (route = ScreenNavigate.WORKOUT.name){
+                    Workout(
+                        modifier = Modifier,
+                        onMoveScreen = {destination -> navController.navigate(destination)},
+                        viewModel = WorkoutViewModel()
                     )
                 }
             }

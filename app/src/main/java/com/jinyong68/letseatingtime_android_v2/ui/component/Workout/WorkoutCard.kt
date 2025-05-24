@@ -1,4 +1,4 @@
-package com.jinyong68.letseatingtime_android_v2.ui.component.Home
+package com.jinyong68.letseatingtime_android_v2.ui.component.Workout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,7 +29,7 @@ fun WorkoutCard(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth()
             .height(70.dp)
             .clip(RoundedCornerShape(8.dp))
     ) {
