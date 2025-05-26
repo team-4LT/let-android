@@ -37,58 +37,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val navController = rememberNavController()
-
-            LaunchedEffect(Unit) {
-                lockPortrait()
-            }
-
-            NavHost(navController = navController, startDestination = ScreenNavigate.WORKOUT.name) {
-                composable(route = ScreenNavigate.SPLASH.name) {
-                    SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
-                }
-                composable(route = ScreenNavigate.LOGIN.name) {
-                    Login(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = LoginViewModel()
-                    )
-                }
-                composable(route = ScreenNavigate.SIGNUPIDSTATUS.name) {
-                    SignUpIdStatus(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = SignUpViewModel()
-                    )
-                }
-                composable(route = ScreenNavigate.SIGNUPINFOSTATUS.name) {
-                    SignUpInfoStatus(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = SignUpViewModel()
-                    )
-                }
-                composable(route = ScreenNavigate.HOME.name) {
-                    Home(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = HomeViewModel()
-                    )
-                }
-                composable(route = ScreenNavigate.MEALSCAN.name) {
-                    MealScan(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) }
-                    )
-                }
-                composable (route = ScreenNavigate.WORKOUT.name){
-                    Workout(
-                        modifier = Modifier,
-                        onMoveScreen = {destination -> navController.navigate(destination)},
-                        viewModel = WorkoutViewModel()
-                    )
-                }
-            }
+            App()
         }
     }
     fun enableOrientationSensor() {

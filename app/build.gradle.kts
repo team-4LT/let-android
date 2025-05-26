@@ -65,6 +65,7 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose) // 최신 버전 사용
 
 
 // ViewModel
@@ -77,7 +78,6 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.core)
     implementation(libs.coil.compose)
-
 
 
 }
