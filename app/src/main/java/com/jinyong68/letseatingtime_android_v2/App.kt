@@ -18,6 +18,17 @@ import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
+
+enum class ScreenNavigate {
+    SPLASH,
+    LOGIN,
+    SIGNUPINFOSTATUS,
+    SIGNUPIDSTATUS,
+    HOME,
+    WORKOUT,
+    QUESTIONNAIRE,
+}
 
 @Composable
 fun App() {
@@ -25,7 +36,7 @@ fun App() {
 
 
 
-    NavHost(navController = navController, startDestination = ScreenNavigate.LOGIN.name) {
+    NavHost(navController = navController, startDestination = ScreenNavigate.QUESTIONNAIRE.name) {
         composable(route = ScreenNavigate.SPLASH.name) {
             SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
         }
@@ -67,5 +78,9 @@ fun App() {
                 viewModel = WorkoutViewModel()
             )
         }
+        composable (route = ScreenNavigate.QUESTIONNAIRE.name) {
+            QuestionnaireScreen()
+        }
+
     }
 }

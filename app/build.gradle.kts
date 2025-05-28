@@ -79,5 +79,7 @@ dependencies {
     implementation(libs.androidx.camera.core)
     implementation(libs.coil.compose)
 
+    implementation("androidx.compose.animation:animation:<version>")
+
 
 }
