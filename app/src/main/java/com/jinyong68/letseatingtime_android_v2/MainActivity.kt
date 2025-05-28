@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                 lockPortrait()
             }
 
-            NavHost(navController = navController, startDestination = ScreenNavigate.WORKOUT.name) {
+            NavHost(navController = navController, startDestination = ScreenNavigate.HOME.name) {
                 composable(route = ScreenNavigate.SPLASH.name) {
                     SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
                 }

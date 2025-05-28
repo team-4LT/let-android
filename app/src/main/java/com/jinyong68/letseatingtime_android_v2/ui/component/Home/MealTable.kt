@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +43,14 @@ fun MealTable(
     clickedDayOfWeek: MutableState<DayOfWeek>,
     onClickDayOfWeek: (DayOfWeek) -> Unit
 ) {
+    val scrollState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        val itemWidthWithPadding = 80
+        val targetScrollOffset = (clickedDay.value - 1) * itemWidthWithPadding
+        scrollState.animateScrollTo(targetScrollOffset)
+    }
+
     val koreanWeekDay = when (clickedDayOfWeek.value) {
         DayOfWeek.MONDAY -> "월"
         DayOfWeek.TUESDAY -> "화"
@@ -62,7 +71,6 @@ fun MealTable(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        // 상단 날짜
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
@@ -74,10 +82,9 @@ fun MealTable(
             )
         }
 
-        // 날짜 리스트 (가로 스크롤)
         Row(
             modifier = Modifier
-                .horizontalScroll(rememberScrollState())
+                .horizontalScroll(scrollState)
                 .fillMaxWidth()
                 .background(color = Color(0xFFF5F5F5))
                 .padding(horizontal = 8.dp)
@@ -123,7 +130,6 @@ fun MealTable(
             }
         }
 
-        // 급식 내용 영역
         Column(verticalArrangement = Arrangement.spacedBy(25.dp)) {
             for (i in 0..2) {
                 Column(
