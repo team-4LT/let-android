@@ -1,8 +1,8 @@
-package com.jinyong68.letseatingtime_android_v2.ui.screen
+package com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.mealAmountCheck
 
-import androidx.compose.foundation.Image
-import com.jinyong68.letseatingtime_android_v2.R
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,28 +14,24 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.rating.RatingStar
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Main2
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
 @Composable
-fun RatingScreen(onNext : () -> Unit ) {
+fun MealAmountCheckScreen( onNext : () -> Unit ) {
 
-    var currentRating by remember { mutableIntStateOf(0) }
+    val mealAmountList = listOf("적음", "적당함", "많음")
+    val selectedIndex = remember { mutableIntStateOf(-1) } // 아무것도 선택되지 않은 상태
+
 
     Box(
         Modifier.fillMaxSize().background(Bg)
@@ -57,25 +53,42 @@ fun RatingScreen(onNext : () -> Unit ) {
                 )
             }
             Box(
-                modifier = Modifier.weight(1f).fillMaxWidth()
+                modifier = Modifier.weight(2f).fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
-                RatingStar(
-                    rating = currentRating,
-                    modifier = Modifier.align(Alignment.Center),
-                    onRatingChanged = { newRating ->
-                        currentRating = newRating
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    mealAmountList.forEachIndexed { index, text ->
+                        Button(
+                            modifier = Modifier
+                                .fillMaxWidth(0.8f)
+                                .height(55.dp)
+                                .border(BorderStroke(1.dp,Main2),RoundedCornerShape(8.dp)),
+                            shape = RoundedCornerShape(8.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (selectedIndex.intValue == index) Main2 else White,
+                                contentColor = if (selectedIndex.intValue == index) White else Main2,
+                            ),
+                            onClick = { selectedIndex.intValue = index }
+                        ) {
+                            Text(text = text, style = AppTypography.titleMedium)
+                        }
                     }
-                )
+                }
             }
             Box(
                 modifier = Modifier.weight(1f).fillMaxWidth(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.TopCenter
             ) {
                 Button(
-                    modifier = Modifier.height(55.dp).fillMaxWidth(.8f),
+                    modifier = Modifier
+                        .height(55.dp)
+                        .fillMaxWidth(.8f),
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Main,
+                        containerColor = Main2,
                         contentColor = White
                     ),
                     onClick = onNext,
@@ -92,6 +105,6 @@ fun RatingScreen(onNext : () -> Unit ) {
 
 @Preview
 @Composable
-fun rating() {
-    RatingScreen(onNext = {}) // 미리보기에서는 빈 람다 전달
+fun Meal() {
+    MealAmountCheckScreen(onNext = {}) // 미리보기에서는 빈 람다 전달
 }
