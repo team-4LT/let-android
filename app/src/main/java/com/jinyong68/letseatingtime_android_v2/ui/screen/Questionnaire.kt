@@ -4,7 +4,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -22,12 +21,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.bestMealVoteScreen.BestMealVoteScreen
 import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.mealAmountCheck.MealAmountCheckScreen
 import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.rating.RatingScreen
+import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.worstMealVoteScreen.WorstMealVoteScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @Composable
-fun QuestionnaireScreen() {
+fun QuestionnaireScreen(onMoveScreen : (String) -> Unit) {
     var step by remember { mutableStateOf(1) }
     val visible = remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
@@ -71,7 +71,7 @@ fun QuestionnaireScreen() {
                 2 -> MealAmountCheckScreen(onNext = onNext)
 
                 3 -> BestMealVoteScreen(onNext = onNext)
-                else -> Box{}
+                4 -> WorstMealVoteScreen(onMoveScreen = onMoveScreen)
             }
         }
     }
@@ -82,5 +82,5 @@ fun QuestionnaireScreen() {
 @Preview
 @Composable
 fun Preview() {
-    QuestionnaireScreen()
+    QuestionnaireScreen(onMoveScreen = {})
 }

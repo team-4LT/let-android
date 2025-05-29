@@ -79,7 +79,7 @@ fun App() {
             )
         }
         composable (route = ScreenNavigate.QUESTIONNAIRE.name) {
-            QuestionnaireScreen()
+            QuestionnaireScreen(onMoveScreen = { destination -> navController.navigate(destination)})
         }
 
     }
