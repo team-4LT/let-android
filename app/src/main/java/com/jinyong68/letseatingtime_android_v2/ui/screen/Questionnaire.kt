@@ -66,11 +66,32 @@ fun QuestionnaireScreen(onMoveScreen : (String) -> Unit) {
             }
 
             when (step) {
-                1 -> RatingScreen(onNext = onNext)
+                1 -> RatingScreen(onNext = {
+                    visible.value = false
+                    coroutineScope.launch {
+                        delay(300)
+                        step = 2
+                        visible.value = true
+                    }
+                })
 
-                2 -> MealAmountCheckScreen(onNext = onNext)
+                2 -> MealAmountCheckScreen(onNext = {
+                    visible.value = false
+                    coroutineScope.launch {
+                        delay(300)
+                        step = 3
+                        visible.value = true
+                    }
+                })
 
-                3 -> BestMealVoteScreen(onNext = onNext)
+                3 -> BestMealVoteScreen(onNext = {
+                    visible.value = false
+                    coroutineScope.launch {
+                        delay(300)
+                        step = 4
+                        visible.value = true
+                    }
+                })
                 4 -> WorstMealVoteScreen(onMoveScreen = onMoveScreen)
             }
         }

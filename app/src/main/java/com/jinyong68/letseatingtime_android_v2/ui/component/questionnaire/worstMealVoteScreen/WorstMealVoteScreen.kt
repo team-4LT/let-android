@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main2
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
@@ -112,12 +113,12 @@ fun WorstMealVoteScreen (onMoveScreen: (String) -> Unit) {
                         .fillMaxWidth(0.8f),
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Main2,
+                        containerColor = Main,
                         contentColor = White
                     ),
                     onClick = {
                         val selectedMeals = selectedIndices.map { mealList[it] }
-                        onMoveScreen(ScreenNavigate.HOME.name)
+                        onMoveScreen(ScreenNavigate.QUESTIONNAIREFINISH.name)
                     }
                 ) {
                     Text(text = "다음", style = AppTypography.titleLarge)
