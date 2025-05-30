@@ -31,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.jinyong68.letseatingtime_android_v2.ui.component.BottomNavigationBar
+import com.jinyong68.letseatingtime_android_v2.ui.screen.ExercisingScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.ProfileScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireFinishScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
@@ -46,6 +47,7 @@ enum class ScreenNavigate {
     QUESTIONNAIRE,
     QUESTIONNAIREFINISH,
     PROFILE,
+    EXERCISING,
 }
 
 
@@ -140,6 +142,9 @@ fun App() {
                 }
                 composable(route = ScreenNavigate.PROFILE.name) {
                     ProfileScreen(onMoveScreen = { destination -> navController.navigate(destination) })
+                }
+                composable(route = ScreenNavigate.EXERCISING.name) {
+                    ExercisingScreen(onMoveScreen = { destination -> navController.navigate(destination)})
                 }
             }
         }
