@@ -29,6 +29,9 @@ import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.jinyong68.letseatingtime_android_v2.ui.component.BottomNavigationBar
+import com.jinyong68.letseatingtime_android_v2.ui.screen.ProfileScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireFinishScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
@@ -42,12 +45,14 @@ enum class ScreenNavigate {
     WORKOUT,
     QUESTIONNAIRE,
     QUESTIONNAIREFINISH,
+    PROFILE,
 }
+
 
 @Composable
 fun App() {
 
-    var currentRoute by remember { mutableStateOf(ScreenNavigate.HOME.name) }
+    var currentRoute by remember { mutableStateOf(ScreenNavigate.LOGIN.name) }
     var showBottomNav by remember { mutableStateOf(true) }
 
     val navController = rememberNavController()
@@ -60,7 +65,15 @@ fun App() {
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             bottomBar = {
                 if (showBottomNav) {
-//                BottomNavigationBar(navController)
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination?.route
+                    val noBottomBarRoutes = listOf(ScreenNavigate.QUESTIONNAIRE.name,
+                        ScreenNavigate.QUESTIONNAIREFINISH.name, ScreenNavigate.LOGIN.name,
+                        ScreenNavigate.SIGNUPIDSTATUS.name, ScreenNavigate.SIGNUPINFOSTATUS.name)
+
+                    if (currentDestination !in noBottomBarRoutes) {
+                        BottomNavigationBar(navController)
+                    }
                 }
             },
             containerColor = Bg
@@ -68,7 +81,7 @@ fun App() {
             NavHost(
                 modifier = Modifier.padding(innerPadding),
                 navController = navController,
-                startDestination = ScreenNavigate.QUESTIONNAIRE.name
+                startDestination = currentRoute
             ) {
                 composable(route = ScreenNavigate.SPLASH.name) {
                     SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
@@ -124,6 +137,9 @@ fun App() {
                             destination
                         )
                     })
+                }
+                composable(route = ScreenNavigate.PROFILE.name) {
+                    ProfileScreen(onMoveScreen = { destination -> navController.navigate(destination) })
                 }
             }
         }
