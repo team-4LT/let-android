@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import androidx.compose.animation.core.animateFloatAsState

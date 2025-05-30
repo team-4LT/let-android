@@ -36,7 +36,7 @@ import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.component.LoginButton
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
@@ -164,7 +164,7 @@ fun Login(
                     }
                     Text(
                         "Copyright 2025. ALT All rights reserved.",
-                        color = Grey,
+                        color = Gray,
                         fontWeight = FontWeight.Thin,
                         fontSize = 12.sp
                     )
