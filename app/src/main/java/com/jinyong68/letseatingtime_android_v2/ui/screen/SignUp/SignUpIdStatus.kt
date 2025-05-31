@@ -1,5 +1,6 @@
 package com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -138,7 +139,11 @@ fun SignUpIdStatus(
                     ButtonField(
                         modifier = modifier,
                         buttonText = "다음",
-                        buttonAction = { onMoveScreen(ScreenNavigate.HOME.name) },
+                        buttonAction = { onMoveScreen(ScreenNavigate.SIGNUPINFOSTATUS.name);
+                            viewModel.setId(idText.toString());
+                            viewModel.setPassword(pwText.toString());
+                            viewModel.setCheckPassword(rePwText.toString());
+                            Log.d("value", "${viewModel.logValues()}");  },
                         questionText = "이미 계정이 있으신가요?",
                         questionActionText = "로그인",
                         questionAction = { onMoveScreen(ScreenNavigate.LOGIN.name) },

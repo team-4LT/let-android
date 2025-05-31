@@ -1,5 +1,7 @@
 package com.jinyong68.letseatingtime_android_v2.viewmodel
 
+import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -47,4 +49,16 @@ class SignUpViewModel @Inject constructor(
             TODO()
         }
     }
+
+    fun getValue(): Array<MutableState<String>> {
+        return arrayOf(_id, _name, _password, _checkPassword, _studentId, _schoolId)
+    }
+
+    fun logValues() {
+        val values = getValue()
+        values.forEachIndexed { index, state ->
+            Log.d("FormState", "Field $index: ${state.value}")
+        }
+    }
+
 }

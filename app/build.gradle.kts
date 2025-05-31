@@ -61,10 +61,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.material.icons.extended) // 최신 버전 사용 가능
 
-
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose) // 최신 버전 사용
 
 
 // ViewModel
@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.androidx.camera.core)
     implementation(libs.coil.compose)
 
+    implementation(libs.androidx.animation)
 
 
 }

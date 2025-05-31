@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 
 @Composable
@@ -51,7 +51,7 @@ fun ButtonField(
         }
         Text(
             "Copyright 2025. ALT All rights reserved.",
-            color = Grey,
+            color = Gray,
             fontWeight = FontWeight.Thin,
             fontSize = 12.sp
         )

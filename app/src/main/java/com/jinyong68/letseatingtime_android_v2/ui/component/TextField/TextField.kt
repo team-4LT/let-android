@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Grey
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
@@ -46,7 +46,7 @@ fun LoginTextField(
         singleLine = true,
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Main,
-            unfocusedBorderColor = Grey
+            unfocusedBorderColor = Gray
         ),
         keyboardOptions = keyboardType
     )
