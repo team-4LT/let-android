@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ui.component.Home.MealScanCard
 import com.jinyong68.letseatingtime_android_v2.ui.component.Home.MealTable
+import com.jinyong68.letseatingtime_android_v2.ui.component.Home.WarningTable
 import com.jinyong68.letseatingtime_android_v2.ui.component.Home.WorkoutTable
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
@@ -56,6 +57,7 @@ fun Home(
             Column(
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
+                WarningTable(time = "점심", meal = "피자", allergy = "우유")
                 MealScanCard(onMoveScreen)
                 MealTable(
                     month = viewModel.month,
