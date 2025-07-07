@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "LetsEatingTime_Android_V2"
 include(":app")
+include(":network")
+include(":data")
+include(":di")
