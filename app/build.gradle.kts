@@ -39,12 +39,19 @@ android {
     buildFeatures {
         compose = true
     }
+
+    packaging {
+        resources {
+            excludes += "META-INF/gradle/incremental.annotation.processors"
+        }
+    }
 }
 
 
 dependencies {
 
     implementation(project(":network"))
+    implementation(project(":di"))
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)

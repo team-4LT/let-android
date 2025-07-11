@@ -35,17 +35,6 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":network"))
-    implementation(project(":di"))
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
@@ -55,5 +44,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.junit)
 }

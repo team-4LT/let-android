@@ -51,19 +51,19 @@ dependencies {
 
     ksp(libs.hilt.compiler)
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.converter.gson)
 
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
+    implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
+    implementation(platform(libs.okhttp.bom))
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v270)
 
 
 
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation(libs.androidx.work.runtime.ktx)
 
 
     //viewModelktx
