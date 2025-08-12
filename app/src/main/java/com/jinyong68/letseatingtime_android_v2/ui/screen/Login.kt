@@ -41,6 +41,7 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
+import com.jinyong68.network.account.AccountRepository
 
 
 @Composable
@@ -142,7 +143,7 @@ fun Login(
                             viewModel.setId(idText.value)
                             viewModel.setPassword(pwText.value)
                             viewModel.login()
-                            onMoveScreen(ScreenNavigate.HOME.name)
+//                            onMoveScreen(ScreenNavigate.HOME.name)
                         }
                     )
                     Box {
@@ -173,14 +174,4 @@ fun Login(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun View() {
-    Login(
-        modifier = Modifier,
-        onMoveScreen = {},
-        viewModel = LoginViewModel()
-    )
 }
