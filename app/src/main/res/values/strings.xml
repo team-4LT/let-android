@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LetsEatingTime_Android_V2</string>
+    <string name="title_app">app</string>
+    <string name="title_dynamicfeature">ModuleTitle</string>
 </resources>
