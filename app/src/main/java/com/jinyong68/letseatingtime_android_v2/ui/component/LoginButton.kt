@@ -3,9 +3,11 @@ package com.jinyong68.letseatingtime_android_v2.ui.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,13 +28,12 @@ fun LoginButton(
     modifier: Modifier,
     text: String,
     action: () -> Unit
-){
+) {
     Box(
         modifier = modifier
-            .clickable {action()}
-            .width(344.dp)
-            .height(58.dp)
-            .padding(start = 13.dp, top = 0.dp, end = 13.dp, bottom = 0.dp)
+            .clickable { action() }
+            .fillMaxWidth()
+            .height(48.dp)
             .background(
                 brush = Brush.verticalGradient(
                     colorStops = arrayOf(
@@ -52,7 +53,6 @@ fun LoginButton(
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
-
         )
     }
 }

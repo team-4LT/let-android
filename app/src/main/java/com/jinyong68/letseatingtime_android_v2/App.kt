@@ -26,7 +26,6 @@ import com.jinyong68.letseatingtime_android_v2.ui.screen.Workout
 import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
-import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -36,12 +35,14 @@ import com.jinyong68.letseatingtime_android_v2.ui.screen.ProfileScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireFinishScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
+import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 
 enum class ScreenNavigate {
     SPLASH,
     LOGIN,
     SIGNUPINFOSTATUS,
     SIGNUPIDSTATUS,
+    SIGNUPALLERGYSTATUS,
     HOME,
     WORKOUT,
     QUESTIONNAIRE,

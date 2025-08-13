@@ -1,9 +1,11 @@
 package com.jinyong68.letseatingtime_android_v2.ui.component
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -25,10 +27,11 @@ fun ButtonField(
     questionAction: ()->Unit,
 ){
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         LoginButton(
-            modifier = modifier,
+            modifier = modifier.height(48.dp),
             text = buttonText,
             action = {
                 buttonAction()
@@ -37,7 +40,7 @@ fun ButtonField(
         Box {
             Row(verticalAlignment = Alignment.CenterVertically)
             {
-                Text(questionText + " ")
+                Text(questionText)
                 TextButton(
                     modifier = Modifier.alignByBaseline(),
                     onClick = {
