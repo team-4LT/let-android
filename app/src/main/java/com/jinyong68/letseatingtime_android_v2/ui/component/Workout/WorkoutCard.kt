@@ -17,15 +17,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.network.dto.WorkoutResponseDto
 
 @Composable
 fun WorkoutCard(
-    img: Int,
-    title: String,
-    description: String
+    data: WorkoutResponseDto
 ) {
     Box(
         modifier = Modifier
@@ -34,7 +34,10 @@ fun WorkoutCard(
             .clip(RoundedCornerShape(8.dp))
     ) {
         Image(
-            painter = painterResource(id = img),
+            painter = painterResource(
+                if(data.type == "moving") R.drawable.running_banner
+                else if (data.type == "stretch"){ R.drawable.stretch_banner}
+                else{ R.drawable.etc_banner}),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -53,12 +56,12 @@ fun WorkoutCard(
                 .padding(16.dp)
         ) {
             Text(
-                text = title,
+                text = data.title,
                 style = AppTypography.headlineMedium,
                 color = White
             )
             Text(
-                text = description,
+                text = data.description,
                 style = AppTypography.bodySmall,
                 fontWeight = FontWeight.Light,
                 color = White

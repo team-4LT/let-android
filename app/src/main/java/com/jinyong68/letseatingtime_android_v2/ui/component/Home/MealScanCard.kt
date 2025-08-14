@@ -2,6 +2,7 @@ package com.jinyong68.letseatingtime_android_v2.ui.component.Home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,33 +24,35 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 
 
 @Composable
 fun MealScanCard(
-    onMoveScreen: (String) -> Unit
+    viewModel: HomeViewModel
 ) {
     Surface(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
-            // 여기에 clickable써서 넣기
-        ) {
+            .clickable{if (!viewModel.isAttend.value){viewModel.isAttend.value = true}}
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.14f)
                 .clip(RoundedCornerShape(8.dp))
-                .background(Main)
-                .padding(horizontal = 18.dp, vertical = 25.dp),
+                .background(if(viewModel.isAttend.value){
+                    Gray
+                }else{Main})
+                .padding(horizontal = 16.dp, vertical = 24.dp),
 
             ) {
             // 출석체크 박스
             Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                ,
+                modifier = Modifier.fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -62,14 +65,14 @@ fun MealScanCard(
                 Column {
                     Text(
                         modifier = Modifier,
-                        text = "출석체크 하기",
+                        text = if(viewModel.isAttend.value){"인증 완료!"}else{"출석체크 하기"},
                         color = White,
-                        style = AppTypography.headlineLarge,
+                        style = AppTypography.headlineMedium,
                     )
                     Text(
-                        text = "NFC 태그를 찍어주세요!",
+                        text = if(viewModel.isAttend.value){"급식 인증을 완료했습니다."}else{"NFC 태그를 찍어주세요!"},
                         color = White,
-                        style = AppTypography.bodyMedium
+                        style = AppTypography.bodySmall
                         )
                 }
             }

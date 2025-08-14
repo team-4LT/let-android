@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,23 +29,27 @@ fun Home(
     onMoveScreen: (String) -> Unit,
     viewModel: HomeViewModel
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.fetchMenu()
+//        viewModel.fetchWorkoutRecommend()
+    }
+
     val clickedDay = remember { mutableStateOf(LocalDate.now().dayOfMonth) }
     val clickedDayOfWeek = remember { mutableStateOf(LocalDate.now().dayOfWeek) }
     val scrollState = rememberScrollState()
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 25.dp)
+            .padding(horizontal = 24.dp)
             .background(Bg)
             .statusBarsPadding()
             .verticalScroll(scrollState),
         contentAlignment = Alignment.TopCenter
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(25.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             Spacer(modifier = Modifier.height(0.dp))
-
             Image(
                 painter = painterResource(R.drawable.logo),
                 contentDescription = "LET",
@@ -58,8 +63,10 @@ fun Home(
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
                 WarningTable(time = "점심", meal = "피자", allergy = "우유")
-                MealScanCard(onMoveScreen)
+                MealScanCard(viewModel)
                 MealTable(
+                    viewModel = viewModel,
+                    mealList = viewModel.mealList.value,
                     month = viewModel.month,
                     day = clickedDay.value,
                     firstDayOfMonth = viewModel.firstDayOfMonth,
@@ -69,7 +76,7 @@ fun Home(
                     clickedDayOfWeek = clickedDayOfWeek,
                     onClickDayOfWeek = { clickedDayOfWeek.value = it }
                 )
-                WorkoutTable()
+                WorkoutTable(data = viewModel.workoutRecommend.value)
             }
             Spacer(
                 modifier = modifier

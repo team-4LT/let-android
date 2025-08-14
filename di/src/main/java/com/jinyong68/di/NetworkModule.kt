@@ -4,7 +4,10 @@ import android.content.Context
 import com.jinyong68.data.TokenManager
 import com.jinyong68.di.Constant.BASE_URL
 import com.jinyong68.network.account.AccountApi
+import com.jinyong68.network.dto.Meal
+import com.jinyong68.network.meal.MealApi
 import com.jinyong68.network.user.UserApi
+import com.jinyong68.network.workout.WorkoutApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,6 +53,14 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideUserApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMealApi(retrofit: Retrofit): MealApi = retrofit.create(MealApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideWorkoutApi(retrofit: Retrofit): WorkoutApi = retrofit.create(WorkoutApi::class.java)
 
     @Provides
     @Singleton

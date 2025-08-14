@@ -2,11 +2,9 @@ package com.jinyong68.letseatingtime_android_v2.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,11 +33,8 @@ import androidx.compose.ui.unit.sp
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
-import com.jinyong68.letseatingtime_android_v2.ui.component.LoginButton
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
 
@@ -126,16 +121,16 @@ fun Login(
                                 placeholderText = "비밀번호를 입력하세요",
                                 type = "password"
                             )
-                                Text(
-                                    text = if(viewModel.isError.value){"아이디 또는 비밀번호가 올바르지 않습니다."}else{""},
-                                    style = TextStyle(
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium,
-                                        color = Main,
-                                        textAlign = TextAlign.Right,
-                                    )
+                            Text(
+                                text = if(viewModel.isError.value){"아이디 또는 비밀번호가 올바르지 않습니다."}else{""},
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Main,
+                                    textAlign = TextAlign.Right,
                                 )
-                            }
+                            )
+                        }
                     }
                 }
                 ButtonField(
