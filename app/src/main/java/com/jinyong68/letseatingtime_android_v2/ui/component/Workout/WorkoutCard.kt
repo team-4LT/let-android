@@ -17,13 +17,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 
 @Composable
 fun WorkoutCard(
-    img: Int,
+    type: String,
     title: String,
     description: String
 ) {
@@ -34,7 +35,10 @@ fun WorkoutCard(
             .clip(RoundedCornerShape(8.dp))
     ) {
         Image(
-            painter = painterResource(id = img),
+            painter = painterResource(
+                if(type == "moving") R.drawable.running_banner
+                else if (type == "stretch"){ R.drawable.stretch_banner}
+                else{ R.drawable.etc_banner}),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()

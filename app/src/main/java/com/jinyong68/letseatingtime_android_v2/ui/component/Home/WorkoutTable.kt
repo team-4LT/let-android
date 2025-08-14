@@ -51,17 +51,17 @@ fun WorkoutTable(){
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ){ // 카드 Column
             WorkoutCard(
-                img = R.drawable.running_banner,
+                type = "moving",
                 title = "달리기 3분 뛰기",
                 description = "달리기 10분을 뜁니다."
             )
             WorkoutCard(
-                img = R.drawable.stretch_banner,
+                type = "stretch",
                 title = "달리기 3분 뛰기",
                 description = "달리기 10분을 뜁니다."
             )
             WorkoutCard(
-                img = R.drawable.etc_banner,
+                type = "etc",
                 title = "달리기 3분 뛰기",
                 description = "달리기 10분을 뜁니다."
             )
