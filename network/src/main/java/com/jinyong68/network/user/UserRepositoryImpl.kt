@@ -3,7 +3,6 @@ package com.jinyong68.network.user
 import com.jinyong68.network.dto.BaseResponseDto
 import com.jinyong68.network.dto.Meal
 import com.jinyong68.network.dto.ResponseDto
-import com.jinyong68.network.dto.Workout
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -25,16 +24,8 @@ class UserRepositoryImpl @Inject constructor(
         return userApi.usersCheck(data)
     }
 
-    override suspend fun usersWorkout(mealState: Boolean): ResponseDto<Workout> {
-        return userApi.usersWorkout(mealState)
-    }
-
     override suspend fun getMealAll(): ResponseDto<List<Meal>> {
         return userApi.getMealAll()
-    }
-
-    override suspend fun getWorkoutAll(): ResponseDto<List<Workout>> {
-        return userApi.getWorkout()
     }
 
 }

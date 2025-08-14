@@ -18,9 +18,12 @@ import com.jinyong68.letseatingtime_android_v2.ui.component.Workout.WorkoutCard
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.network.dto.WorkoutResponseDto
 
 @Composable
-fun WorkoutTable(){
+fun WorkoutTable(
+    data: List<WorkoutResponseDto>
+){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,21 +53,11 @@ fun WorkoutTable(){
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ){ // 카드 Column
-            WorkoutCard(
-                type = "moving",
-                title = "달리기 3분 뛰기",
-                description = "달리기 10분을 뜁니다."
-            )
-            WorkoutCard(
-                type = "stretch",
-                title = "달리기 3분 뛰기",
-                description = "달리기 10분을 뜁니다."
-            )
-            WorkoutCard(
-                type = "etc",
-                title = "달리기 3분 뛰기",
-                description = "달리기 10분을 뜁니다."
-            )
+            data.forEach { it ->
+                WorkoutCard(
+                    data = it
+                )
+            }
         }
     }
 }

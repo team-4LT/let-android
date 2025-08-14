@@ -132,10 +132,11 @@ fun App() {
                     )
                 }
                 composable(route = ScreenNavigate.WORKOUT.name) {
+                    val workoutViewModel: WorkoutViewModel = hiltViewModel()
                     Workout(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = WorkoutViewModel()
+                        viewModel = workoutViewModel
                     )
                 }
                 composable(route = ScreenNavigate.QUESTIONNAIRE.name) {

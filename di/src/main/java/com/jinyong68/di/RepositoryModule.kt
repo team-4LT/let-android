@@ -6,6 +6,8 @@ import com.jinyong68.network.meal.MealRepository
 import com.jinyong68.network.meal.MealRepositoryImpl
 import com.jinyong68.network.user.UserRepository
 import com.jinyong68.network.user.UserRepositoryImpl
+import com.jinyong68.network.workout.WorkoutRepository
+import com.jinyong68.network.workout.WorkoutRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +31,9 @@ class RepositoryModule {
     @Singleton
     fun provideMealRepository(mealRepositoryImpl: MealRepositoryImpl): MealRepository =
         mealRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideWorkRepository(workoutRepositoryImpl: WorkoutRepositoryImpl): WorkoutRepository =
+        workoutRepositoryImpl
 }

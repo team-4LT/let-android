@@ -31,6 +31,7 @@ fun Home(
 ) {
     LaunchedEffect(Unit) {
         viewModel.fetchMenu()
+//        viewModel.fetchWorkoutRecommend()
     }
 
     val clickedDay = remember { mutableStateOf(LocalDate.now().dayOfMonth) }
@@ -75,7 +76,7 @@ fun Home(
                     clickedDayOfWeek = clickedDayOfWeek,
                     onClickDayOfWeek = { clickedDayOfWeek.value = it }
                 )
-                WorkoutTable()
+                WorkoutTable(data = viewModel.workoutRecommend.value)
             }
             Spacer(
                 modifier = modifier

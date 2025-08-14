@@ -173,7 +173,7 @@ fun MealTable(
                     }
 
                     Text(
-                        text = mealList.getOrNull(i)?.menus?.joinToString(", ") { it.menuName } ?: "메뉴 없음",
+                        text = mealList.getOrNull(i)?.menus?.joinToString(", ") { it.menuName } ?: "급식이 없습니다.",
                         style = AppTypography.bodySmall,
                         color = Black
                     )
