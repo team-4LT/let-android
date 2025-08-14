@@ -16,9 +16,11 @@ interface AccountApi {
     @POST("auth/signup")
     suspend fun signup(@Body signupRequest: SignupRequestDto): BaseResponseDto
 
-    @Headers("Auth: false")
-    @POST("auth/login")
-    suspend fun login(@Body loginRequest: LoginRequestDto): ResponseDto<Token>
+    @POST("/auth/login")
+    suspend fun login(
+        @Body request: LoginRequestDto
+    ): ResponseDto<Token>
+
 
     @Headers("Auth: false")
     @POST("auth/refresh")

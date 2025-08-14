@@ -26,7 +26,6 @@ import com.jinyong68.letseatingtime_android_v2.ui.screen.Workout
 import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
-import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -35,13 +34,16 @@ import com.jinyong68.letseatingtime_android_v2.ui.screen.ExercisingScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.ProfileScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireFinishScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
+import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpAllergyStatus
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
+import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 
 enum class ScreenNavigate {
     SPLASH,
     LOGIN,
     SIGNUPINFOSTATUS,
     SIGNUPIDSTATUS,
+    SIGNUPALLERGYSTATUS,
     HOME,
     WORKOUT,
     QUESTIONNAIRE,
@@ -71,7 +73,8 @@ fun App() {
                     val currentDestination = navBackStackEntry?.destination?.route
                     val noBottomBarRoutes = listOf(ScreenNavigate.QUESTIONNAIRE.name,
                         ScreenNavigate.QUESTIONNAIREFINISH.name, ScreenNavigate.LOGIN.name,
-                        ScreenNavigate.SIGNUPIDSTATUS.name, ScreenNavigate.SIGNUPINFOSTATUS.name)
+                        ScreenNavigate.SIGNUPIDSTATUS.name, ScreenNavigate.SIGNUPINFOSTATUS.name,
+                        ScreenNavigate.SIGNUPALLERGYSTATUS.name)
 
                     if (currentDestination !in noBottomBarRoutes) {
                         BottomNavigationBar(navController)
@@ -99,6 +102,14 @@ fun App() {
                 composable(route = ScreenNavigate.SIGNUPIDSTATUS.name) {
                     val signUpViewModel: SignUpViewModel = hiltViewModel()
                     SignUpIdStatus(
+                        modifier = Modifier,
+                        onMoveScreen = { destination -> navController.navigate(destination) },
+                        viewModel = signUpViewModel
+                    )
+                }
+                composable(route = ScreenNavigate.SIGNUPALLERGYSTATUS.name) {
+                    val signUpViewModel: SignUpViewModel = hiltViewModel()
+                    SignUpAllergyStatus(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) },
                         viewModel = signUpViewModel

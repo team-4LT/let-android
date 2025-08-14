@@ -16,8 +16,8 @@ class AccountRepositoryImpl @Inject constructor(
         return accountApi.signup(signupRequest)
     }
 
-    override suspend fun login(loginRequest: LoginRequestDto) = flow {
-        emit(accountApi.login(loginRequest))
+    override suspend fun login(loginRequest: LoginRequestDto): ResponseDto<Token> {
+        return accountApi.login(loginRequest)
     }
 
     override suspend fun refresh(refreshToken: String): Response<ResponseDto<Token>> {

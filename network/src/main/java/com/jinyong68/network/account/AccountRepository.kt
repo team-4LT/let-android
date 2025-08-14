@@ -10,6 +10,6 @@ import retrofit2.Response
 
 interface AccountRepository {
     suspend fun signup(signupRequest: SignupRequestDto): BaseResponseDto
-    suspend fun login(loginRequest: LoginRequestDto): Flow<ResponseDto<Token>>
+    suspend fun login(loginRequest: LoginRequestDto): ResponseDto<Token>
     suspend fun refresh(refreshToken: String): Response<ResponseDto<Token>>
 }
