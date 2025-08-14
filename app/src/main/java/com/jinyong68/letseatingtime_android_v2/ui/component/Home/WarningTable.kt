@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -27,6 +28,7 @@ fun WarningTable(
 ){
     Row (
         horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .background(White, shape = RoundedCornerShape(8.dp))
@@ -39,7 +41,7 @@ fun WarningTable(
         Text(
             text = "${time}에 ${allergy}가 포함되어있는 ${meal}가 나옵니다.",
             color = Main,
-            style = AppTypography.titleLarge,
+            style = AppTypography.bodySmall,
             fontWeight = FontWeight.Light
         )
     }
