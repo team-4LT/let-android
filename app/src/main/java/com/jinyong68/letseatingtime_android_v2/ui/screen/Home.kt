@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,6 +29,10 @@ fun Home(
     onMoveScreen: (String) -> Unit,
     viewModel: HomeViewModel
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.fetchMenu()
+    }
+
     val clickedDay = remember { mutableStateOf(LocalDate.now().dayOfMonth) }
     val clickedDayOfWeek = remember { mutableStateOf(LocalDate.now().dayOfWeek) }
     val scrollState = rememberScrollState()
@@ -59,6 +64,8 @@ fun Home(
                 WarningTable(time = "점심", meal = "피자", allergy = "우유")
                 MealScanCard(viewModel)
                 MealTable(
+                    viewModel = viewModel,
+                    mealList = viewModel.mealList.value,
                     month = viewModel.month,
                     day = clickedDay.value,
                     firstDayOfMonth = viewModel.firstDayOfMonth,

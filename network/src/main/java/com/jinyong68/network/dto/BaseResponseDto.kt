@@ -1,10 +1,7 @@
 package com.jinyong68.network.dto
 
-import com.google.gson.annotations.SerializedName
-
-data class BaseResponseDto(
-    @SerializedName("status")
-    val status : Int,
-    @SerializedName("message")
-    val message : String,
+data class BaseResponseDto<T>(
+    val status: Int,
+    val message: String,
+    val data: T?
 )

@@ -124,10 +124,11 @@ fun App() {
                     )
                 }
                 composable(route = ScreenNavigate.HOME.name) {
+                    val homeViewModel: HomeViewModel = hiltViewModel()
                     Home(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = HomeViewModel()
+                        viewModel =homeViewModel
                     )
                 }
                 composable(route = ScreenNavigate.WORKOUT.name) {

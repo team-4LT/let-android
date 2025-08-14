@@ -1,20 +1,30 @@
 package com.jinyong68.letseatingtime_android_v2.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.jinyong68.network.dto.LoginRequestDto
+import com.jinyong68.network.dto.MealResponseDto
+import com.jinyong68.network.meal.MealRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
-    private val _date = LocalDate.now()
-
+class HomeViewModel @Inject constructor(
+    private val mealRepository: MealRepository
+) : ViewModel() {
+    val _date = LocalDate.now()
+    val isLoading = mutableStateOf(false)
+    val isError = mutableStateOf(false)
     val isAttend = mutableStateOf(false)
-
+    val mealList = mutableStateOf<List<MealResponseDto>>(emptyList())
     val year = _date.year
     val month = _date.monthValue
-    val day = _date.dayOfMonth
     val firstDayOfMonth = LocalDate.now().withDayOfMonth(1)
     var clickedDay = mutableStateOf(LocalDate.now().dayOfMonth)
     val dayOfWeek = when (_date.dayOfWeek) { // 요일
@@ -39,6 +49,28 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     fun isLeapYear(year: Int): Boolean {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+    }
+
+    fun fetchMenu(today: String = _date.toString()) = viewModelScope.launch {
+        try{
+            val response = mealRepository.menu(date = today.toString())
+            Log.d("Meal", "서버 응답: $response")
+
+            if (response.status == 200 || response.status == 201) {
+                mealList.value = response.data ?: emptyList()
+            } else {
+                isError.value = true
+            }
+
+        } catch (e: retrofit2.HttpException) {
+            Log.e("Meal", "급식 불러오기 실패 ${e.code()}", e)
+            isError.value = true
+        } catch (e: Exception) {
+            Log.e("Meal", "급식 불러오기 실패", e)
+            isError.value = true
+        } finally {
+            isLoading.value = false
+            }
     }
 }
 

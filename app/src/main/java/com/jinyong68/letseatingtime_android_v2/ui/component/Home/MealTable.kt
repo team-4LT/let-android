@@ -31,11 +31,15 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main2
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
+import com.jinyong68.network.dto.MealResponseDto
 import java.time.DayOfWeek
 import java.time.LocalDate
 
 @Composable
 fun MealTable(
+    viewModel: HomeViewModel,
+    mealList: List<MealResponseDto>,
     month: Int,
     day: Int,
     firstDayOfMonth: LocalDate,
@@ -46,6 +50,7 @@ fun MealTable(
     onClickDayOfWeek: (DayOfWeek) -> Unit
 ) {
     val scrollState = rememberScrollState()
+    val currentDate = LocalDate.now()
 
     LaunchedEffect(Unit) {
         val itemWidthWithPadding = 80
@@ -109,6 +114,7 @@ fun MealTable(
                         .clickable {
                             onClickDay(i)
                             onClickDayOfWeek(date.dayOfWeek)
+                            viewModel.fetchMenu("${viewModel.year}-${String.format("%02d", viewModel.month)}-${String.format("%02d", i)}")
                         },
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
@@ -165,8 +171,9 @@ fun MealTable(
                             color = Black
                         )
                     }
+
                     Text(
-                        text = "추억의 도시락, 물떡앤어묵꼬치, 수제오징어링 + 칠리소스, 깍두기, 바나나우유",
+                        text = mealList.getOrNull(i)?.menus?.joinToString(", ") { it.menuName } ?: "메뉴 없음",
                         style = AppTypography.bodySmall,
                         color = Black
                     )

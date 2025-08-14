@@ -2,6 +2,8 @@ package com.jinyong68.di
 
 import com.jinyong68.network.account.AccountRepository
 import com.jinyong68.network.account.AccountRepositoryImpl
+import com.jinyong68.network.meal.MealRepository
+import com.jinyong68.network.meal.MealRepositoryImpl
 import com.jinyong68.network.user.UserRepository
 import com.jinyong68.network.user.UserRepositoryImpl
 import dagger.Module
@@ -22,4 +24,9 @@ class RepositoryModule {
     @Singleton
     fun provideUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository =
         userRepositoryImpl
+
+    @Provides
+    @Singleton
+    fun provideMealRepository(mealRepositoryImpl: MealRepositoryImpl): MealRepository =
+        mealRepositoryImpl
 }

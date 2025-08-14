@@ -2,11 +2,9 @@ package com.jinyong68.letseatingtime_android_v2.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,11 +33,8 @@ import androidx.compose.ui.unit.sp
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
-import com.jinyong68.letseatingtime_android_v2.ui.component.LoginButton
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
-import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
 
@@ -138,18 +133,14 @@ fun Login(
                         }
                     }
                 }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(34.dp)
-                ) {
-                    LoginButton(
-                        modifier = modifier,
-                        text = "다음",
-                        action = {
-                            viewModel.setId(idText.value)
-                            viewModel.setPassword(pwText.value)
-                            viewModel.login()
-//                            onMoveScreen(ScreenNavigate.HOME.name)
+                ButtonField(
+                    modifier = modifier,
+                    buttonText = if(viewModel.isLoading.value){"로딩 중..."}else{"로그인"},
+                    buttonAction = {
+                        viewModel.setId(idText.value)
+                        viewModel.setPassword(pwText.value)
+                        viewModel.login {
+                            onMoveScreen(ScreenNavigate.HOME.name)
                         }
                     },
                     questionText = "계정이 없으신가요?",
