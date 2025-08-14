@@ -138,14 +138,18 @@ fun Login(
                         }
                     }
                 }
-                ButtonField(
-                    modifier = modifier,
-                    buttonText = if(viewModel.isLoading.value){"로딩 중..."}else{"로그인"},
-                    buttonAction = {
-                        viewModel.setId(idText.value)
-                        viewModel.setPassword(pwText.value)
-                        viewModel.login {
-                            onMoveScreen(ScreenNavigate.HOME.name)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(34.dp)
+                ) {
+                    LoginButton(
+                        modifier = modifier,
+                        text = "다음",
+                        action = {
+                            viewModel.setId(idText.value)
+                            viewModel.setPassword(pwText.value)
+                            viewModel.login()
+//                            onMoveScreen(ScreenNavigate.HOME.name)
                         }
                     },
                     questionText = "계정이 없으신가요?",
