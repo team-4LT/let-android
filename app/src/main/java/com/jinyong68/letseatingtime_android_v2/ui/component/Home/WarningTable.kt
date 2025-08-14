@@ -29,8 +29,8 @@ fun WarningTable(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .background(White)
-            .padding(horizontal = 18.dp, vertical = 14.dp)
+            .background(White, shape = RoundedCornerShape(8.dp))
+            .padding(horizontal = 16.dp, vertical = 12.dp)
             .clip(RoundedCornerShape(8.dp)),
     ){
         Image(

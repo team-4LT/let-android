@@ -143,7 +143,7 @@ fun Login(
                             viewModel.setId(idText.value)
                             viewModel.setPassword(pwText.value)
                             viewModel.login()
-//                            onMoveScreen(ScreenNavigate.HOME.name)
+                            onMoveScreen(ScreenNavigate.HOME.name)
                         }
                     )
                     Box {
