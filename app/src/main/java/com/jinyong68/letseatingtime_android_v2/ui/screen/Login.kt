@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,11 +30,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
+import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
 import com.jinyong68.letseatingtime_android_v2.ui.component.LoginButton
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Gray
@@ -41,7 +42,6 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
-import com.jinyong68.network.account.AccountRepository
 
 
 @Composable
@@ -71,6 +71,7 @@ fun Login(
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxWidth()
+                .imePadding()
                 .align(Alignment.TopCenter)
         )
 
@@ -81,7 +82,7 @@ fun Login(
                 .fillMaxHeight(0.77f)
                 .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                 .background(White)
-                .padding(vertical = 40.dp),
+                .padding(vertical = 40.dp, horizontal = 40.dp),
             contentAlignment = Alignment.TopCenter,
         )
         {
@@ -103,28 +104,32 @@ fun Login(
                             .height(60.dp)
                     )
                     Spacer(modifier = Modifier.height(40.dp))
-                    Box { // 로그인 박스 칸
+                    Box(
+                        modifier = modifier.fillMaxWidth()
+                    ) {
+                        // 로그인 박스 칸
                         Column(
+                            modifier = modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.End,
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             LoginTextField(
                                 modifier = modifier,
                                 text = idText,
                                 onValueChanged = { idText.value = it },
-                                placeholder = { Text(text = "아이디를 입력하세요", color = Placeholder) }
+                                placeholderText = "아이디를 입력하세요"
                             )
                             LoginTextField(
                                 modifier = modifier,
                                 text = pwText,
                                 onValueChanged = { pwText.value = it },
-                                placeholder = { Text(text = "비밀번호를 입력하세요", color = Placeholder) }
+                                placeholderText = "비밀번호를 입력하세요"
                             )
                             Text(
                                 text = "비밀번호가 올바르지 않습니다.",
                                 style = TextStyle(
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight(400),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Medium,
                                     color = Main,
                                     textAlign = TextAlign.Right,
                                 )
@@ -132,45 +137,18 @@ fun Login(
                         }
                     }
                 }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(34.dp)
-                ) {
-                    LoginButton(
-                        modifier = modifier,
-                        text = "다음",
-                        action = {
-                            viewModel.setId(idText.value)
-                            viewModel.setPassword(pwText.value)
-                            viewModel.login()
-//                            onMoveScreen(ScreenNavigate.HOME.name)
-                        }
-                    )
-                    Box {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                        )
-                        {
-                            Text(text = "계정이 없으신가요?")
-                            Text(
-                                modifier = Modifier
-                                    .alignByBaseline()
-                                    .clickable {
-                                        onMoveScreen(ScreenNavigate.SIGNUPIDSTATUS.name)
-                                    },
-                                text = "회원가입",
-                                color = Main
-                            )
-                        }
-                    }
-                    Text(
-                        "Copyright 2025. ALT All rights reserved.",
-                        color = Gray,
-                        fontWeight = FontWeight.Thin,
-                        fontSize = 12.sp
-                    )
-                }
-
+                ButtonField(
+                    modifier = modifier,
+                    buttonText = "로그인",
+                    buttonAction = {
+                        onMoveScreen(ScreenNavigate.HOME.name)
+                        viewModel.setId(idText.toString())
+                        viewModel.setPassword(pwText.toString())
+                    },
+                    questionText = "계정이 없으신가요?",
+                    questionActionText = "회원가입",
+                    questionAction = { onMoveScreen(ScreenNavigate.SIGNUPINFOSTATUS.name) },
+                )
             }
         }
     }
