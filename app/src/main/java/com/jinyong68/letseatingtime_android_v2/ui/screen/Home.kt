@@ -34,17 +34,16 @@ fun Home(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 25.dp)
+            .padding(horizontal = 24.dp)
             .background(Bg)
             .statusBarsPadding()
             .verticalScroll(scrollState),
         contentAlignment = Alignment.TopCenter
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(25.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             Spacer(modifier = Modifier.height(0.dp))
-
             Image(
                 painter = painterResource(R.drawable.logo),
                 contentDescription = "LET",
@@ -58,7 +57,7 @@ fun Home(
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
                 WarningTable(time = "점심", meal = "피자", allergy = "우유")
-                MealScanCard(onMoveScreen)
+                MealScanCard(viewModel)
                 MealTable(
                     month = viewModel.month,
                     day = clickedDay.value,

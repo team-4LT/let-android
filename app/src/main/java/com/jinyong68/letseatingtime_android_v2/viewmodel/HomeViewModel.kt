@@ -9,6 +9,9 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor() : ViewModel() {
     private val _date = LocalDate.now()
+
+    val isAttend = mutableStateOf(false)
+
     val year = _date.year
     val month = _date.monthValue
     val day = _date.dayOfMonth

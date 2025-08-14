@@ -126,16 +126,16 @@ fun Login(
                                 placeholderText = "비밀번호를 입력하세요",
                                 type = "password"
                             )
-                                Text(
-                                    text = if(viewModel.isError.value){"아이디 또는 비밀번호가 올바르지 않습니다."}else{""},
-                                    style = TextStyle(
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium,
-                                        color = Main,
-                                        textAlign = TextAlign.Right,
-                                    )
+                            Text(
+                                text = if(viewModel.isError.value){"아이디 또는 비밀번호가 올바르지 않습니다."}else{""},
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Main,
+                                    textAlign = TextAlign.Right,
                                 )
-                            }
+                            )
+                        }
                     }
                 }
                 ButtonField(
