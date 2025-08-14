@@ -19,6 +19,7 @@ class SignUpViewModel @Inject constructor(
     private val _schoolId = mutableStateOf("")
     private val _password = mutableStateOf("")
     private val _checkPassword = mutableStateOf("")
+    val allergyList = mutableStateOf(setOf<String>())
 
     fun setId(inputText: String) {
         _id.value = inputText
@@ -42,6 +43,16 @@ class SignUpViewModel @Inject constructor(
 
     fun setCheckPassword(inputText : String) {
         _checkPassword.value = inputText
+    }
+
+    fun changeAllergy(inputText: String) {
+        allergyList.value = allergyList.value.toMutableSet().apply {
+            if (!add(inputText)) remove(inputText)
+        }
+    }
+
+    fun clearAllergy() {
+        allergyList.value = emptySet()
     }
 
     fun signUp() = viewModelScope.launch {
