@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class BaseResponseDto(
     @SerializedName("status")
     val status : Int,
-    @SerializedName("massage")
-    val massage : String,
+    @SerializedName("message")
+    val message : String,
 )

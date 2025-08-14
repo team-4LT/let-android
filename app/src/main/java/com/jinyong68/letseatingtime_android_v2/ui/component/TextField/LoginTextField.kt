@@ -4,15 +4,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,14 +33,17 @@ fun LoginTextField(
     text: MutableState<String>,
     onValueChanged: (String) -> Unit,
     placeholderText: String = "",
+    type: String? = null,
     keyboardType: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
 ) {
+    var passwordVisible by remember { mutableStateOf(false) }
+
     OutlinedTextField(
+        value = text.value,
+        onValueChange = onValueChanged,
         modifier = modifier
             .fillMaxWidth()
             .height(68.dp),
-        value = text.value,
-        onValueChange = onValueChanged,
         placeholder = {
             Text(
                 text = placeholderText,
@@ -47,6 +56,7 @@ fun LoginTextField(
                 )
             )
         },
+        singleLine = true,
         shape = RoundedCornerShape(12.dp),
         textStyle = TextStyle(
             fontSize = 16.sp,
@@ -55,11 +65,25 @@ fun LoginTextField(
             fontWeight = FontWeight.Normal,
             lineHeight = 20.sp
         ),
-        singleLine = true,
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Main,
             unfocusedBorderColor = Gray
         ),
-        keyboardOptions = keyboardType
+        keyboardOptions = keyboardType,
+        visualTransformation = if(type == "password" && !passwordVisible) {
+            PasswordVisualTransformation()
+        } else {
+            VisualTransformation.None
+        },
+        trailingIcon = {
+            if(type == "password") {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        imageVector = if(passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                        contentDescription = null
+                    )
+                }
+            }
+        }
     )
 }

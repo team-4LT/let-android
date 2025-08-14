@@ -123,27 +123,30 @@ fun Login(
                                 modifier = modifier,
                                 text = pwText,
                                 onValueChanged = { pwText.value = it },
-                                placeholderText = "비밀번호를 입력하세요"
+                                placeholderText = "비밀번호를 입력하세요",
+                                type = "password"
                             )
-                            Text(
-                                text = "비밀번호가 올바르지 않습니다.",
-                                style = TextStyle(
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    color = Main,
-                                    textAlign = TextAlign.Right,
+                                Text(
+                                    text = if(viewModel.isError.value){"아이디 또는 비밀번호가 올바르지 않습니다."}else{""},
+                                    style = TextStyle(
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = Main,
+                                        textAlign = TextAlign.Right,
+                                    )
                                 )
-                            )
-                        }
+                            }
                     }
                 }
                 ButtonField(
                     modifier = modifier,
-                    buttonText = "로그인",
+                    buttonText = if(viewModel.isLoading.value){"로딩 중..."}else{"로그인"},
                     buttonAction = {
-                        onMoveScreen(ScreenNavigate.HOME.name)
-                        viewModel.setId(idText.toString())
-                        viewModel.setPassword(pwText.toString())
+                        viewModel.setId(idText.value)
+                        viewModel.setPassword(pwText.value)
+                        viewModel.login {
+                            onMoveScreen(ScreenNavigate.HOME.name)
+                        }
                     },
                     questionText = "계정이 없으신가요?",
                     questionActionText = "회원가입",
