@@ -34,7 +34,7 @@ fun Home(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 25.dp)
             .background(Bg)
             .statusBarsPadding()
             .verticalScroll(scrollState),
@@ -44,6 +44,7 @@ fun Home(
             verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
             Spacer(modifier = Modifier.height(0.dp))
+
             Image(
                 painter = painterResource(R.drawable.logo),
                 contentDescription = "LET",

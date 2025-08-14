@@ -6,12 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,6 +34,7 @@ import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Placeholder
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
 
@@ -44,15 +43,14 @@ fun SignUpInfoStatus(
     modifier: Modifier = Modifier,
     onMoveScreen: (String) -> Unit,
     viewModel: SignUpViewModel
-) { // 회원정보 입력하는 곳
-    val idText = rememberSaveable { mutableStateOf("") }
-    val pwText = rememberSaveable { mutableStateOf("") }
-    val rePwText = rememberSaveable { mutableStateOf("") }
+) { // 인적사항 작성하는 곳
+    val nameText = rememberSaveable { mutableStateOf("") }
+    val studentIdText = rememberSaveable { mutableStateOf("") }
+    val schoolId = rememberSaveable { mutableStateOf("") }
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .imePadding()
             .background(
                 brush = Brush.verticalGradient(
                     colorStops = arrayOf(
@@ -71,13 +69,14 @@ fun SignUpInfoStatus(
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
         )
+
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.77f)
+                .fillMaxHeight(0.75f)
                 .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                 .background(White)
-                .padding(vertical = 40.dp, horizontal = 40.dp),
+                .padding(vertical = 40.dp),
             contentAlignment = Alignment.TopCenter,
         ) {
             Column(
@@ -102,35 +101,34 @@ fun SignUpInfoStatus(
                                 .width(142.5.dp)
                                 .height(60.dp)
                         )
-                        Spacer(modifier = Modifier.height(40.dp))
                         Box {
                             Column(
                                 horizontalAlignment = Alignment.End,
-                                verticalArrangement = Arrangement.spacedBy(12.dp)
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = idText,
-                                    onValueChanged = { idText.value = it },
-                                    placeholderText = "이름을 입력하세요"
+                                    text = nameText,
+                                    onValueChanged = { nameText.value = it },
+                                    placeholder = { Text("아이디를 입력하세요", color = Placeholder) }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = pwText,
-                                    onValueChanged = { pwText.value = it },
-                                    placeholderText = "학번을 입력하세요."
+                                    text = studentIdText,
+                                    onValueChanged = { studentIdText.value  = it },
+                                    placeholder = { Text("비밀번호를 입력하세요.", color = Placeholder) }
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = rePwText,
-                                    onValueChanged = { rePwText.value = it },
-                                    placeholderText = "학교ID를 입력하세요."
+                                    text = schoolId,
+                                    onValueChanged = { schoolId.value = it },
+                                    placeholder = { Text("비밀번호를 재입력하세요.", color = Placeholder) }
                                 )
                                 Text(
                                     text = "비밀번호가 올바르지 않습니다.",
                                     style = TextStyle(
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight(400),
                                         color = Main,
                                         textAlign = TextAlign.Right,
                                     )
@@ -141,11 +139,12 @@ fun SignUpInfoStatus(
                     ButtonField(
                         modifier = modifier,
                         buttonText = "다음",
-                        buttonAction = { onMoveScreen(ScreenNavigate.SIGNUPIDSTATUS.name);
-                            viewModel.setId(idText.toString());
-                            viewModel.setPassword(pwText.toString());
-                            viewModel.setCheckPassword(rePwText.toString());
-                            Log.d("value", "${viewModel.logValues()}");  },
+                        buttonAction = {
+                            onMoveScreen(ScreenNavigate.SIGNUPIDSTATUS.name);
+                            viewModel.setName(nameText.toString());
+                            viewModel.setStudent(studentIdText.toString());
+                            viewModel.setSchoolId(schoolId.toString());
+                            Log.d("value", "${viewModel.logValues()}"); },
                         questionText = "이미 계정이 있으신가요?",
                         questionActionText = "로그인",
                         questionAction = { onMoveScreen(ScreenNavigate.LOGIN.name) },
