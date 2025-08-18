@@ -21,13 +21,15 @@ import com.jinyong68.letseatingtime_android_v2.ui.component.Home.WarningTable
 import com.jinyong68.letseatingtime_android_v2.ui.component.Home.WorkoutTable
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
+import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 import java.time.LocalDate
 
 @Composable
 fun Home(
     modifier: Modifier = Modifier,
     onMoveScreen: (String) -> Unit,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    workoutViewModel: WorkoutViewModel
 ) {
     LaunchedEffect(Unit) {
         viewModel.fetchMenu()
@@ -58,7 +60,6 @@ fun Home(
                     .fillMaxHeight(0.05f)
                     .fillMaxWidth(0.2f)
             )
-
             Column(
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
@@ -76,7 +77,7 @@ fun Home(
                     clickedDayOfWeek = clickedDayOfWeek,
                     onClickDayOfWeek = { clickedDayOfWeek.value = it }
                 )
-                WorkoutTable(data = viewModel.workoutRecommend.value)
+                WorkoutTable(data = viewModel.workoutRecommend.value, viewModel = workoutViewModel, onMoveScreen = onMoveScreen)
             }
             Spacer(
                 modifier = modifier

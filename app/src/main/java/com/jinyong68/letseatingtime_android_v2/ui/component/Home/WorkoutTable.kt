@@ -18,11 +18,14 @@ import com.jinyong68.letseatingtime_android_v2.ui.component.Workout.WorkoutCard
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 import com.jinyong68.network.dto.WorkoutResponseDto
 
 @Composable
 fun WorkoutTable(
-    data: List<WorkoutResponseDto>
+    data: List<WorkoutResponseDto>,
+    viewModel: WorkoutViewModel,
+    onMoveScreen: (String) -> Unit
 ){
     Column(
         modifier = Modifier
@@ -55,7 +58,9 @@ fun WorkoutTable(
         ){ // 카드 Column
             data.forEach { it ->
                 WorkoutCard(
-                    data = it
+                    data = it,
+                    viewModel = viewModel,
+                    onMoveScreen = onMoveScreen
                 )
             }
         }

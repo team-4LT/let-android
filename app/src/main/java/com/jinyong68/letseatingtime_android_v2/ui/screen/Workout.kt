@@ -27,6 +27,7 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
+import com.jinyong68.network.dto.WorkoutResponseDto
 
 @Composable
 fun Workout(
@@ -34,6 +35,15 @@ fun Workout(
     onMoveScreen: (String) -> Unit,
     viewModel: WorkoutViewModel
 ) {
+    val sampleWorkout = WorkoutResponseDto(
+        id = 1,
+        title = "가볍게 달리기",
+        description = "운동장을 천천히 뛰며 몸을 풀어보세요.",
+        explain = "5분간 달리기를 통해 심박수를 높이고 몸을 따뜻하게 합니다.",
+        calorie = 50,
+        time = 300,
+        type = "moving"
+    )
     LaunchedEffect(Unit) {
 //        viewModel.fetchWorkoutList()
     }
@@ -41,7 +51,7 @@ fun Workout(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 25.dp)
+            .padding(horizontal = 24.dp)
             .background(Bg)
             .statusBarsPadding(),
         contentAlignment = Alignment.TopCenter
@@ -76,8 +86,13 @@ fun Workout(
                     .verticalScroll(scrollState),
             ) {
                 viewModel.workoutList.value.forEach { it ->
-                    WorkoutCard(data = it)
+                    WorkoutCard(data = it, onMoveScreen, viewModel)
                 }
+                WorkoutCard(
+                    data = sampleWorkout,
+                    onMoveScreen = onMoveScreen,
+                    viewModel
+                )
             }
             if (viewModel.isModalClicked) {
                 WorkoutModal(

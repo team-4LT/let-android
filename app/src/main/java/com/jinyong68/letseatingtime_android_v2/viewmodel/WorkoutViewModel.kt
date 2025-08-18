@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.jinyong68.network.dto.WorkoutResponseDto
 import com.jinyong68.network.workout.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,15 +17,38 @@ import javax.inject.Inject
 class WorkoutViewModel @Inject constructor(
     private val workoutRepository: WorkoutRepository
 ) : ViewModel() {
+
+    val selectedWorkout = mutableStateOf<WorkoutResponseDto?>(null)
     val isLoading = mutableStateOf(false)
     val isError = mutableStateOf(false)
     val workoutList = mutableStateOf<List<WorkoutResponseDto>>(emptyList())
-
+    // 현재 진행 시간
+    val workoutTime = mutableStateOf(0)
+    // 지금 진행 중인지 아닌지
+    val isRunning = mutableStateOf(false)
     var isModalClicked by mutableStateOf(false)
         private set
-
+    fun decreaseTime() {
+        viewModelScope.launch {
+            while (workoutTime.value > 0 && isRunning.value) {
+                delay(1000L)
+                workoutTime.value--
+            }
+            isRunning.value = false
+        }
+    }
     fun toggleModal() {
         isModalClicked = !isModalClicked
+    }
+
+    fun toggleIsRunning(){
+        isRunning.value = !isRunning.value
+    }
+
+    fun setSelectedWorkout(workout: WorkoutResponseDto) {
+        selectedWorkout.value = workout
+        workoutTime.value =  workout.time
+        isRunning.value = false
     }
 
     fun updateModalClicked(value: Boolean) {

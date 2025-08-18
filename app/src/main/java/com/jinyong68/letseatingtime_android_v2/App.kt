@@ -56,10 +56,12 @@ enum class ScreenNavigate {
 @Composable
 fun App() {
 
-    var currentRoute by remember { mutableStateOf(ScreenNavigate.LOGIN.name) }
+    var currentRoute by remember { mutableStateOf(ScreenNavigate.WORKOUT.name) }
     var showBottomNav by remember { mutableStateOf(true) }
 
     val navController = rememberNavController()
+
+    val workoutViewModel: WorkoutViewModel = hiltViewModel()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +76,7 @@ fun App() {
                     val noBottomBarRoutes = listOf(ScreenNavigate.QUESTIONNAIRE.name,
                         ScreenNavigate.QUESTIONNAIREFINISH.name, ScreenNavigate.LOGIN.name,
                         ScreenNavigate.SIGNUPIDSTATUS.name, ScreenNavigate.SIGNUPINFOSTATUS.name,
-                        ScreenNavigate.SIGNUPALLERGYSTATUS.name)
+                        ScreenNavigate.SIGNUPALLERGYSTATUS.name, ScreenNavigate.EXERCISING.name)
 
                     if (currentDestination !in noBottomBarRoutes) {
                         BottomNavigationBar(navController)
@@ -125,14 +127,15 @@ fun App() {
                 }
                 composable(route = ScreenNavigate.HOME.name) {
                     val homeViewModel: HomeViewModel = hiltViewModel()
+                    val workoutViewModel: WorkoutViewModel = hiltViewModel()
                     Home(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel =homeViewModel
+                        viewModel =homeViewModel,
+                        workoutViewModel = workoutViewModel
                     )
                 }
-                composable(route = ScreenNavigate.WORKOUT.name) {
-                    val workoutViewModel: WorkoutViewModel = hiltViewModel()
+                composable(ScreenNavigate.WORKOUT.name) {
                     Workout(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) },
@@ -156,8 +159,10 @@ fun App() {
                 composable(route = ScreenNavigate.PROFILE.name) {
                     ProfileScreen(onMoveScreen = { destination -> navController.navigate(destination) })
                 }
-                composable(route = ScreenNavigate.EXERCISING.name) {
-                    ExercisingScreen(onMoveScreen = { destination -> navController.navigate(destination)})
+                composable(ScreenNavigate.EXERCISING.name) {
+                    ExercisingScreen(onMoveScreen = { route ->
+                        navController.navigate(route)
+                    }, viewModel = workoutViewModel)
                 }
             }
         }
