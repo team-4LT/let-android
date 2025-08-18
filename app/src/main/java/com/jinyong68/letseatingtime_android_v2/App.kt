@@ -124,17 +124,19 @@ fun App() {
                     )
                 }
                 composable(route = ScreenNavigate.HOME.name) {
+                    val homeViewModel: HomeViewModel = hiltViewModel()
                     Home(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = HomeViewModel()
+                        viewModel =homeViewModel
                     )
                 }
                 composable(route = ScreenNavigate.WORKOUT.name) {
+                    val workoutViewModel: WorkoutViewModel = hiltViewModel()
                     Workout(
                         modifier = Modifier,
                         onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = WorkoutViewModel()
+                        viewModel = workoutViewModel
                     )
                 }
                 composable(route = ScreenNavigate.QUESTIONNAIRE.name) {

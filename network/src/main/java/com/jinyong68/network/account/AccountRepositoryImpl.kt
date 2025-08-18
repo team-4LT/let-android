@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AccountRepositoryImpl @Inject constructor(
     private val accountApi: AccountApi
 ) : AccountRepository {
-    override suspend fun signup(signupRequest: SignupRequestDto): BaseResponseDto {
+    override suspend fun signup(signupRequest: SignupRequestDto): BaseResponseDto<Nothing> {
         return accountApi.signup(signupRequest)
     }
 
