@@ -81,7 +81,7 @@ fun Home(
             }
             Spacer(
                 modifier = modifier
-                    .height(160.dp)
+                    .height(60.dp)
             )
         }
     }

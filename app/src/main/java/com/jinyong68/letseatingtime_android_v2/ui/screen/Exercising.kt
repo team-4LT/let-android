@@ -132,7 +132,7 @@ fun ExercisingScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    modifier = Modifier.clickable {
+                    modifier = Modifier.clickable{
                         onMoveScreen(ScreenNavigate.WORKOUT.name)
                     },
                     painter = painterResource(R.drawable.back),

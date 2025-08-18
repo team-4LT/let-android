@@ -1,5 +1,4 @@
 package com.jinyong68.letseatingtime_android_v2.ui.component.Workout
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,7 +24,6 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.network.dto.WorkoutResponseDto
-import com.google.gson.Gson
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 
 @Composable

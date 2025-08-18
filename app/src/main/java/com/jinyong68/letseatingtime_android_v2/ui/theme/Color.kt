@@ -12,7 +12,7 @@ val Gray = Color(0xFFDBDBDB)
 val Placeholder = Color(0x80000000)
 val Black = Color(0xFF303030)
 val White = Color(0xFFFFFFFF)
-val Bg = Color(0xFFF8F8F8)
+val Bg = Color(0xFFF6F8FB)
 val BtmNavIcon = Color(0xFF6E6E6E)
 
 val Purple80 = Color(0xFFD0BCFF)

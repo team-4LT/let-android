@@ -56,7 +56,7 @@ enum class ScreenNavigate {
 @Composable
 fun App() {
 
-    var currentRoute by remember { mutableStateOf(ScreenNavigate.WORKOUT.name) }
+    var currentRoute by remember { mutableStateOf(ScreenNavigate.HOME.name) }
     var showBottomNav by remember { mutableStateOf(true) }
 
     val navController = rememberNavController()
@@ -73,10 +73,12 @@ fun App() {
                 if (showBottomNav) {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination?.route
+                    // bottom bar 없어도 되는 것들
                     val noBottomBarRoutes = listOf(ScreenNavigate.QUESTIONNAIRE.name,
                         ScreenNavigate.QUESTIONNAIREFINISH.name, ScreenNavigate.LOGIN.name,
                         ScreenNavigate.SIGNUPIDSTATUS.name, ScreenNavigate.SIGNUPINFOSTATUS.name,
-                        ScreenNavigate.SIGNUPALLERGYSTATUS.name, ScreenNavigate.EXERCISING.name)
+                        ScreenNavigate.SIGNUPALLERGYSTATUS.name, ScreenNavigate.EXERCISING.name,
+                        ScreenNavigate.SPLASH.name)
 
                     if (currentDestination !in noBottomBarRoutes) {
                         BottomNavigationBar(navController)
