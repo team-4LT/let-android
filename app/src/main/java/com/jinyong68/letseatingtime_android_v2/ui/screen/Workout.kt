@@ -35,17 +35,8 @@ fun Workout(
     onMoveScreen: (String) -> Unit,
     viewModel: WorkoutViewModel
 ) {
-    val sampleWorkout = WorkoutResponseDto(
-        id = 1,
-        title = "가볍게 달리기",
-        description = "운동장을 천천히 뛰며 몸을 풀어보세요.",
-        explain = "5분간 달리기를 통해 심박수를 높이고 몸을 따뜻하게 합니다.",
-        calorie = 50,
-        time = 300,
-        type = "moving"
-    )
     LaunchedEffect(Unit) {
-//        viewModel.fetchWorkoutList()
+        viewModel.fetchWorkoutList()
     }
     val scrollState = rememberScrollState()
     Box(
@@ -88,11 +79,6 @@ fun Workout(
                 viewModel.workoutList.value.forEach { it ->
                     WorkoutCard(data = it, onMoveScreen, viewModel)
                 }
-                WorkoutCard(
-                    data = sampleWorkout,
-                    onMoveScreen = onMoveScreen,
-                    viewModel
-                )
             }
             if (viewModel.isModalClicked) {
                 WorkoutModal(

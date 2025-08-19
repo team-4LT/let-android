@@ -44,8 +44,8 @@ fun WorkoutCard(
     ) {
         Image(
             painter = painterResource(
-                if(data.type == "moving") R.drawable.running_banner
-                else if (data.type == "stretch"){ R.drawable.stretch_banner}
+                if(data.category == "MOVING") R.drawable.running_banner
+                else if (data.category == "STRETCH"){ R.drawable.stretch_banner}
                 else{ R.drawable.etc_banner}),
             contentDescription = null,
             contentScale = ContentScale.Crop,

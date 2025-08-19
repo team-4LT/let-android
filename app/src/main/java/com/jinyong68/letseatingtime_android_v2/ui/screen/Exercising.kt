@@ -87,7 +87,7 @@ fun ExercisingScreen(
                             color = Main,
                             fontWeight = FontWeight.SemiBold
                         )) {
-                            val t = viewModel.selectedWorkout.value?.time ?: 0
+                            val t = viewModel.selectedWorkout.value?.duration ?: 0
                             append("${(t / 60).toString().padStart(2,'0')}:${(t % 60).toString().padStart(2,'0')} 동안")
                         }
                         append("\n뛰었어요")
@@ -154,7 +154,7 @@ fun ExercisingScreen(
             ){
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = viewModel.selectedWorkout.value?.explain ?: "시작하기를 눌러 운동을 시작하세요!",
+                    text = viewModel.selectedWorkout.value?.method ?: "시작하기를 눌러 운동을 시작하세요!",
                     style = AppTypography.displayMedium,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(0.9f)

@@ -47,7 +47,7 @@ class WorkoutViewModel @Inject constructor(
 
     fun setSelectedWorkout(workout: WorkoutResponseDto) {
         selectedWorkout.value = workout
-        workoutTime.value =  workout.time
+        workoutTime.value =  workout.duration * 60
         isRunning.value = false
     }
 
