@@ -40,6 +40,7 @@ import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
+import com.jinyong68.letseatingtime_android_v2.ui.theme.DarkGray
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.letseatingtime_android_v2.ui.theme.pretendard
@@ -153,12 +154,21 @@ fun ExercisingScreen(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ){
                 Spacer(Modifier.height(8.dp))
-                Text(
-                    text = viewModel.selectedWorkout.value?.method ?: "시작하기를 눌러 운동을 시작하세요!",
-                    style = AppTypography.displayMedium,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth(0.9f)
-                )
+                Column {
+                    Text(
+                        text = viewModel.selectedWorkout.value?.title ?: "알 수 없는 운동",
+                        style = AppTypography.titleLarge,
+                        color = DarkGray,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth(0.9f)
+                    )
+                    Text(
+                        text = viewModel.selectedWorkout.value?.method ?: "시작하기를 눌러 운동을 시작하세요!",
+                        style = AppTypography.displayMedium,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth(0.9f)
+                    )
+                }
                 Image(
                     modifier = Modifier.size(250.dp),
                     painter = painterResource(R.drawable.girl_running),
@@ -189,8 +199,7 @@ fun ExercisingScreen(
                         contentColor = if(viewModel.isRunning.value){Main}else{White}
                     ),
                     onClick = {
-                        viewModel.toggleIsRunning()
-                        viewModel.decreaseTime() },
+                        viewModel.toggleTimer() },
                 ) {
                     Text(text = if(viewModel.isRunning.value){"멈추기"}else{"시작하기"}, style = AppTypography.titleLarge, color = if(viewModel.isRunning.value){Main}else{White})
                 }
