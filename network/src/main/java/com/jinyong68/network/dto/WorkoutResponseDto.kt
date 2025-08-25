@@ -4,8 +4,8 @@ data class WorkoutResponseDto(
     val id: Int,
     val title: String,
     val description: String,
-    val explain: String,
+    val method: String,
     val calorie: Int,
-    val time: Int,
-    val type: String
+    val duration: Int,
+    val category: String
 )

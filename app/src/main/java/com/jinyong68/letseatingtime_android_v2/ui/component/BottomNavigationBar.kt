@@ -45,7 +45,7 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: ScreenNavigate.HOME.name
+    val currentRoute = navBackStackEntry?.destination?.route ?: ScreenNavigate.SPLASH.name
 
     val items = listOf(
         BottomNavItem( ScreenNavigate.WORKOUT.name, R.drawable.exercise),
@@ -71,7 +71,7 @@ fun BottomNavigationBar(navController: NavController) {
             val isSelected = destination.route == currentRoute
             val animatedColor by animateColorAsState(
                 animationSpec = tween(
-                    durationMillis = 200,
+                    durationMillis = 500,
                 ),
                 targetValue = if (isSelected) Main else BtmNavIcon
             )

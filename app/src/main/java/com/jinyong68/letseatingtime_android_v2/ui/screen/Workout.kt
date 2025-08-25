@@ -27,6 +27,7 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
+import com.jinyong68.network.dto.WorkoutResponseDto
 
 @Composable
 fun Workout(
@@ -35,13 +36,13 @@ fun Workout(
     viewModel: WorkoutViewModel
 ) {
     LaunchedEffect(Unit) {
-//        viewModel.fetchWorkoutList()
+        viewModel.fetchWorkoutList()
     }
     val scrollState = rememberScrollState()
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 25.dp)
+            .padding(horizontal = 24.dp)
             .background(Bg)
             .statusBarsPadding(),
         contentAlignment = Alignment.TopCenter
@@ -76,7 +77,7 @@ fun Workout(
                     .verticalScroll(scrollState),
             ) {
                 viewModel.workoutList.value.forEach { it ->
-                    WorkoutCard(data = it)
+                    WorkoutCard(data = it, onMoveScreen, viewModel)
                 }
             }
             if (viewModel.isModalClicked) {
