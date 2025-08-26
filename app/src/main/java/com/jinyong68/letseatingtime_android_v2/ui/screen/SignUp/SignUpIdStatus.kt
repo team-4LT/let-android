@@ -3,6 +3,7 @@ package com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,9 +13,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -31,10 +38,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.component.ButtonField
 import com.jinyong68.letseatingtime_android_v2.ui.component.TextField.LoginTextField
+import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
 import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
@@ -45,10 +54,6 @@ fun SignUpIdStatus(
     onMoveScreen: (String) -> Unit,
     viewModel: SignUpViewModel
 ) {
-    // 인적사항 작성하는 곳
-    val nameText = rememberSaveable { mutableStateOf("") }
-    val studentIdText = rememberSaveable { mutableStateOf("") }
-    val schoolId = rememberSaveable { mutableStateOf("") }
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -63,6 +68,19 @@ fun SignUpIdStatus(
             ),
         contentAlignment = Alignment.BottomStart
     ) {
+        Icon(
+            imageVector = Icons.Default.ArrowBackIosNew,
+            contentDescription = "뒤로가기",
+            tint = White,
+            modifier = Modifier
+                .offset(x = 16.dp, y = 40.dp)
+                .size(30.dp)
+                .align(Alignment.TopStart)
+                .zIndex(99f)
+                .clickable {
+                    onMoveScreen(ScreenNavigate.SIGNUPINFOSTATUS.name)
+                }
+        )
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = null,
@@ -71,7 +89,6 @@ fun SignUpIdStatus(
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
         )
-
         Box(
             modifier = modifier
                 .fillMaxWidth()
@@ -111,24 +128,26 @@ fun SignUpIdStatus(
                             ) {
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = nameText,
-                                    onValueChanged = { nameText.value = it },
+                                    text = viewModel.id,
+                                    onValueChanged = { viewModel.id.value = it },
                                     placeholderText = "아이디를 입력하세요"
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = studentIdText,
-                                    onValueChanged = { studentIdText.value  = it },
-                                    placeholderText = "비밀번호를 입력하세요."
+                                    text = viewModel.password,
+                                    onValueChanged = { viewModel.password.value  = it },
+                                    placeholderText = "비밀번호를 입력하세요.",
+                                    type = "password"
                                 )
                                 LoginTextField(
                                     modifier = modifier,
-                                    text = schoolId,
-                                    onValueChanged = { schoolId.value = it },
-                                    placeholderText = "비밀번호를 재입력하세요."
+                                    text = viewModel.checkPassword,
+                                    onValueChanged = { viewModel.checkPassword.value = it },
+                                    placeholderText = "비밀번호를 재입력하세요.",
+                                    type = "password"
                                 )
                                 Text(
-                                    text = "비밀번호가 올바르지 않습니다.",
+                                    text = if (viewModel.isError.value) viewModel.errorMessage.value else "",
                                     style = TextStyle(
                                         fontSize = 14.sp,
                                         fontWeight = FontWeight.Medium,
@@ -143,10 +162,11 @@ fun SignUpIdStatus(
                         modifier = modifier,
                         buttonText = "다음",
                         buttonAction = {
-                            onMoveScreen(ScreenNavigate.SIGNUPALLERGYSTATUS.name);
-                            viewModel.setName(nameText.toString());
-                            viewModel.setStudent(studentIdText.toString());
-                            viewModel.setSchoolId(schoolId.toString());
+                            if (viewModel.validateSignUpId()) {
+                                println("봐라")
+                                println(viewModel.number.value)
+                            onMoveScreen(ScreenNavigate.SIGNUPALLERGYSTATUS.name)
+                        }
                             Log.d("value", "${viewModel.logValues()}"); },
                         questionText = "이미 계정이 있으신가요?",
                         questionActionText = "로그인",
