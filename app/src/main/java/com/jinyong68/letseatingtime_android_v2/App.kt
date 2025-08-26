@@ -1,42 +1,20 @@
 package com.jinyong68.letseatingtime_android_v2
 
-import android.content.pm.ActivityInfo
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.jinyong68.letseatingtime_android_v2.ui.screen.Home
-import com.jinyong68.letseatingtime_android_v2.ui.screen.Login
-import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpIdStatus
-import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpInfoStatus
-import com.jinyong68.letseatingtime_android_v2.ui.screen.SplashScreen
-import com.jinyong68.letseatingtime_android_v2.ui.screen.Workout
-import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
-import com.jinyong68.letseatingtime_android_v2.viewmodel.LoginViewModel
-import com.jinyong68.letseatingtime_android_v2.viewmodel.SignUpViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navigation
 import com.jinyong68.letseatingtime_android_v2.ui.component.BottomNavigationBar
-import com.jinyong68.letseatingtime_android_v2.ui.screen.ExercisingScreen
-import com.jinyong68.letseatingtime_android_v2.ui.screen.ProfileScreen
-import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireFinishScreen
-import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
-import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpAllergyStatus
+import com.jinyong68.letseatingtime_android_v2.ui.screen.*
+import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.*
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
-import com.jinyong68.letseatingtime_android_v2.viewmodel.ProfileViewModel
-import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
+import com.jinyong68.letseatingtime_android_v2.viewmodel.*
 
 enum class ScreenNavigate {
     SPLASH,
@@ -52,122 +30,150 @@ enum class ScreenNavigate {
     EXERCISING,
 }
 
-
 @Composable
 fun App(navController: NavHostController) {
-
-    var currentRoute by remember { mutableStateOf(ScreenNavigate.SPLASH.name) }
     var showBottomNav by remember { mutableStateOf(true) }
 
-//    val navController = rememberNavController()
-
     val workoutViewModel: WorkoutViewModel = hiltViewModel()
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-    ) {
-        Scaffold(
-            contentWindowInsets = WindowInsets(0, 0, 0, 0),
-            bottomBar = {
-                if (showBottomNav) {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentDestination = navBackStackEntry?.destination?.route
-                    // bottom bar 없어도 되는 것들
-                    val noBottomBarRoutes = listOf(ScreenNavigate.QUESTIONNAIRE.name,
-                        ScreenNavigate.QUESTIONNAIREFINISH.name, ScreenNavigate.LOGIN.name,
-                        ScreenNavigate.SIGNUPIDSTATUS.name, ScreenNavigate.SIGNUPINFOSTATUS.name,
-                        ScreenNavigate.SIGNUPALLERGYSTATUS.name, ScreenNavigate.EXERCISING.name,
-                        ScreenNavigate.SPLASH.name)
 
-                    if (currentDestination !in noBottomBarRoutes) {
-                        BottomNavigationBar(navController)
-                    }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        containerColor = Bg,
+        bottomBar = {
+            if (showBottomNav) {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = navBackStackEntry?.destination?.route
+                val noBottomBarRoutes = listOf(
+                    ScreenNavigate.QUESTIONNAIRE.name,
+                    ScreenNavigate.QUESTIONNAIREFINISH.name,
+                    ScreenNavigate.LOGIN.name,
+                    ScreenNavigate.SIGNUPIDSTATUS.name,
+                    ScreenNavigate.SIGNUPINFOSTATUS.name,
+                    ScreenNavigate.SIGNUPALLERGYSTATUS.name,
+                    ScreenNavigate.EXERCISING.name,
+                    ScreenNavigate.SPLASH.name
+                )
+                if (currentDestination !in noBottomBarRoutes) {
+                    BottomNavigationBar(navController)
                 }
-            },
-            containerColor = Bg
-        ) { innerPadding ->
-            NavHost(
-                modifier = Modifier.padding(innerPadding),
-                navController = navController,
-                startDestination = currentRoute
+            }
+        }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = ScreenNavigate.SPLASH.name,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            navigation(
+                startDestination = ScreenNavigate.SIGNUPIDSTATUS.name,
+                route = "signup_graph"
             ) {
-                composable(route = ScreenNavigate.SPLASH.name) {
-                    SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
-                }
-                composable(route = ScreenNavigate.LOGIN.name) {
-                    val loginViewModel: LoginViewModel = hiltViewModel()
-                    Login(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = loginViewModel
-                    )
-                }
-                composable(route = ScreenNavigate.SIGNUPIDSTATUS.name) {
-                    val signUpViewModel: SignUpViewModel = hiltViewModel()
+                composable(ScreenNavigate.SIGNUPIDSTATUS.name) {
+                    val parentEntry = remember(navController.currentBackStackEntry) {
+                        navController.getBackStackEntry("signup_graph")
+                    }
+                    val signUpViewModel: SignUpViewModel = hiltViewModel(parentEntry)
                     SignUpIdStatus(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = signUpViewModel
+                        viewModel = signUpViewModel,
+                        onMoveScreen = { destination ->
+                            when (destination) {
+                                "BACK" -> navController.popBackStack()
+                                else -> navController.navigate(destination)
+                            }
+                        }
                     )
                 }
-                composable(route = ScreenNavigate.SIGNUPALLERGYSTATUS.name) {
-                    val signUpViewModel: SignUpViewModel = hiltViewModel()
+
+                composable(ScreenNavigate.SIGNUPALLERGYSTATUS.name) {
+                    val parentEntry = remember(navController.currentBackStackEntry) {
+                        navController.getBackStackEntry("signup_graph")
+                    }
+                    val signUpViewModel: SignUpViewModel = hiltViewModel(parentEntry)
                     SignUpAllergyStatus(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = signUpViewModel
+                        viewModel = signUpViewModel,
+                        onMoveScreen = { destination ->
+                            when (destination) {
+                                "BACK" -> navController.popBackStack()
+                                else -> navController.navigate(destination)
+                            }
+                        }
                     )
                 }
-                composable(route = ScreenNavigate.SIGNUPINFOSTATUS.name) {
-                    val signUpViewModel: SignUpViewModel = hiltViewModel()
+
+                composable(ScreenNavigate.SIGNUPINFOSTATUS.name) {
+                    val parentEntry = remember(navController.currentBackStackEntry) {
+                        navController.getBackStackEntry("signup_graph")
+                    }
+                    val signUpViewModel: SignUpViewModel = hiltViewModel(parentEntry)
                     SignUpInfoStatus(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = signUpViewModel
+                        viewModel = signUpViewModel,
+                        onMoveScreen = { destination ->
+                            when (destination) {
+                                "BACK" -> navController.popBackStack()
+                                else -> navController.navigate(destination)
+                            }
+                        }
                     )
                 }
-                composable(route = ScreenNavigate.HOME.name) {
-                    val homeViewModel: HomeViewModel = hiltViewModel()
-                    val workoutViewModel: WorkoutViewModel = hiltViewModel()
-                    Home(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel =homeViewModel,
-                        workoutViewModel = workoutViewModel
-                    )
-                }
-                composable(ScreenNavigate.WORKOUT.name) {
-                    Workout(
-                        modifier = Modifier,
-                        onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = workoutViewModel
-                    )
-                }
-                composable(route = ScreenNavigate.QUESTIONNAIRE.name) {
-                    QuestionnaireScreen(onMoveScreen = { destination ->
-                        navController.navigate(
-                            destination
-                        )
-                    })
-                }
-                composable(route = ScreenNavigate.QUESTIONNAIREFINISH.name) {
-                    QuestionnaireFinishScreen(onMoveScreen = { destination ->
-                        navController.navigate(
-                            destination
-                        )
-                    })
-                }
-                composable(route = ScreenNavigate.PROFILE.name) {
-                    val profileViewModel: ProfileViewModel = hiltViewModel()
-                    ProfileScreen(onMoveScreen = { destination -> navController.navigate(destination) },
-                        viewModel = profileViewModel)
-                }
-                composable(ScreenNavigate.EXERCISING.name) {
-                    ExercisingScreen(onMoveScreen = { route ->
-                        navController.navigate(route)
-                    }, viewModel = workoutViewModel)
-                }
+            }
+
+            // 일반 화면
+            composable(ScreenNavigate.SPLASH.name) {
+                val splashViewModel: SplashViewModel = hiltViewModel()
+                SplashScreen(
+                    viewModel = splashViewModel,
+                    onMoveScreen = { destination -> navController.navigate(destination) }
+                )
+            }
+
+            composable(ScreenNavigate.LOGIN.name) {
+                val loginViewModel: LoginViewModel = hiltViewModel()
+                Login(
+                    modifier = Modifier,
+                    onMoveScreen = { destination -> navController.navigate(destination) },
+                    viewModel = loginViewModel
+                )
+            }
+
+            composable(ScreenNavigate.HOME.name) {
+                val homeViewModel: HomeViewModel = hiltViewModel()
+                Home(
+                    modifier = Modifier,
+                    onMoveScreen = { destination -> navController.navigate(destination) },
+                    viewModel = homeViewModel,
+                    workoutViewModel = workoutViewModel
+                )
+            }
+
+            composable(ScreenNavigate.WORKOUT.name) {
+                Workout(
+                    modifier = Modifier,
+                    onMoveScreen = { destination -> navController.navigate(destination) },
+                    viewModel = workoutViewModel
+                )
+            }
+
+            composable(ScreenNavigate.QUESTIONNAIRE.name) {
+                QuestionnaireScreen(onMoveScreen = { destination -> navController.navigate(destination) })
+            }
+
+            composable(ScreenNavigate.QUESTIONNAIREFINISH.name) {
+                QuestionnaireFinishScreen(onMoveScreen = { destination -> navController.navigate(destination) })
+            }
+
+            composable(ScreenNavigate.PROFILE.name) {
+                val profileViewModel: ProfileViewModel = hiltViewModel()
+                ProfileScreen(
+                    onMoveScreen = { destination -> navController.navigate(destination) },
+                    viewModel = profileViewModel
+                )
+            }
+
+            composable(ScreenNavigate.EXERCISING.name) {
+                ExercisingScreen(
+                    onMoveScreen = { route -> navController.navigate(route) },
+                    viewModel = workoutViewModel
+                )
             }
         }
     }
