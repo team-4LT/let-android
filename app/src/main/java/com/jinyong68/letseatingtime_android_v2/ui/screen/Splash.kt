@@ -16,20 +16,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jinyong68.letseatingtime_android_v2.R
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
+import com.jinyong68.letseatingtime_android_v2.viewmodel.SplashViewModel
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    onMoveScreen : (String) -> Unit
+    onMoveScreen : (String) -> Unit,
+    viewModel: SplashViewModel = hiltViewModel()
 ) {
     var isSplashVisible by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
-        delay(2000) // 2초 후
+        delay(2000)
+
+        viewModel.accessToken.collect { token ->
+            if (token.isNotEmpty()) {
+                onMoveScreen(ScreenNavigate.HOME.name)
+            } else {
+                onMoveScreen(ScreenNavigate.LOGIN.name)
+            }
+        }
         isSplashVisible = false
-        onMoveScreen(ScreenNavigate.LOGIN.name)
     }
 
     Box(
@@ -39,7 +49,7 @@ fun SplashScreen(
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logo), // 각진 PNG 이미지 경로
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = "Splash Logo",
             modifier = Modifier.size(200.dp)
         )

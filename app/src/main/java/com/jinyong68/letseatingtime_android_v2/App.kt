@@ -36,6 +36,8 @@ import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireFinishScre
 import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpAllergyStatus
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
+import com.jinyong68.letseatingtime_android_v2.viewmodel.ProfileViewModel
+import com.jinyong68.letseatingtime_android_v2.viewmodel.SplashViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 
 enum class ScreenNavigate {
@@ -56,7 +58,7 @@ enum class ScreenNavigate {
 @Composable
 fun App() {
 
-    var currentRoute by remember { mutableStateOf(ScreenNavigate.HOME.name) }
+    var currentRoute by remember { mutableStateOf(ScreenNavigate.SPLASH.name) }
     var showBottomNav by remember { mutableStateOf(true) }
 
     val navController = rememberNavController()
@@ -93,7 +95,8 @@ fun App() {
                 startDestination = currentRoute
             ) {
                 composable(route = ScreenNavigate.SPLASH.name) {
-                    SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
+                    val splashViewModel: SplashViewModel = hiltViewModel()
+                    SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) }, splashViewModel)
                 }
                 composable(route = ScreenNavigate.LOGIN.name) {
                     val loginViewModel: LoginViewModel = hiltViewModel()
@@ -159,7 +162,9 @@ fun App() {
                     })
                 }
                 composable(route = ScreenNavigate.PROFILE.name) {
-                    ProfileScreen(onMoveScreen = { destination -> navController.navigate(destination) })
+                    val profileViewModel: ProfileViewModel = hiltViewModel()
+                    ProfileScreen(onMoveScreen = { destination -> navController.navigate(destination) },
+                        viewModel = profileViewModel)
                 }
                 composable(ScreenNavigate.EXERCISING.name) {
                     ExercisingScreen(onMoveScreen = { route ->
