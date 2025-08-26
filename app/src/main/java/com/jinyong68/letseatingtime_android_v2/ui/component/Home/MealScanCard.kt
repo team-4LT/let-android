@@ -32,12 +32,16 @@ import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 
 @Composable
 fun MealScanCard(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
 ) {
     Surface(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
-            .clickable{if (!viewModel.isAttend.value){viewModel.isAttend.value = true}}
+            .clickable{
+                if (!viewModel.isAttend.value){
+                    viewModel.modalVisibility.value = true
+                }
+            }
     ) {
         Box(
             modifier = Modifier

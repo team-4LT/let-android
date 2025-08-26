@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.jinyong68.letseatingtime_android_v2.ui.screen.Home
 import com.jinyong68.letseatingtime_android_v2.ui.screen.Login
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpIdStatus
@@ -37,7 +36,6 @@ import com.jinyong68.letseatingtime_android_v2.ui.screen.QuestionnaireScreen
 import com.jinyong68.letseatingtime_android_v2.ui.screen.SignUp.SignUpAllergyStatus
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.viewmodel.ProfileViewModel
-import com.jinyong68.letseatingtime_android_v2.viewmodel.SplashViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
 
 enum class ScreenNavigate {
@@ -56,12 +54,12 @@ enum class ScreenNavigate {
 
 
 @Composable
-fun App() {
+fun App(navController: NavHostController) {
 
     var currentRoute by remember { mutableStateOf(ScreenNavigate.SPLASH.name) }
     var showBottomNav by remember { mutableStateOf(true) }
 
-    val navController = rememberNavController()
+//    val navController = rememberNavController()
 
     val workoutViewModel: WorkoutViewModel = hiltViewModel()
     Box(
@@ -95,8 +93,7 @@ fun App() {
                 startDestination = currentRoute
             ) {
                 composable(route = ScreenNavigate.SPLASH.name) {
-                    val splashViewModel: SplashViewModel = hiltViewModel()
-                    SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) }, splashViewModel)
+                    SplashScreen(onMoveScreen = { destination -> navController.navigate(destination) })
                 }
                 composable(route = ScreenNavigate.LOGIN.name) {
                     val loginViewModel: LoginViewModel = hiltViewModel()

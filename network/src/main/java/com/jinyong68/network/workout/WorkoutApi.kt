@@ -5,11 +5,11 @@ import com.jinyong68.network.dto.WorkoutResponseDto
 import retrofit2.http.GET
 
 interface WorkoutApi {
-    @GET("exercises")
+    @GET("/exercises")
     suspend fun workoutList(
     ): BaseResponseDto<List<WorkoutResponseDto>>
 
-    @GET("workout/recommend")
+    @GET("/workout/recommend")
     suspend fun workoutRecommend(
     ): BaseResponseDto<List<WorkoutResponseDto>>
 }

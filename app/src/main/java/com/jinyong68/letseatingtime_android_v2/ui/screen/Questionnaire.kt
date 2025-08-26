@@ -17,20 +17,32 @@ import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.Progre
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.bestMealVoteScreen.BestMealVoteScreen
 import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.mealAmountCheck.MealAmountCheckScreen
 import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.rating.RatingScreen
 import com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.worstMealVoteScreen.WorstMealVoteScreen
+import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
+import com.jinyong68.letseatingtime_android_v2.viewmodel.QuestionnaireViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 
 @Composable
-fun QuestionnaireScreen(onMoveScreen : (String) -> Unit) {
-    var step by remember { mutableStateOf(1) }
+fun QuestionnaireScreen(
+    onMoveScreen : (String) -> Unit,
+) {
+    val viewModel : QuestionnaireViewModel = hiltViewModel()
+    var step = viewModel.step
     val visible = remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchMenu()
+    }
 
     Column(
         modifier = Modifier
@@ -70,7 +82,7 @@ fun QuestionnaireScreen(onMoveScreen : (String) -> Unit) {
                     visible.value = false
                     coroutineScope.launch {
                         delay(300)
-                        step = 2
+                        viewModel.step = 2
                         visible.value = true
                     }
                 })
@@ -79,7 +91,7 @@ fun QuestionnaireScreen(onMoveScreen : (String) -> Unit) {
                     visible.value = false
                     coroutineScope.launch {
                         delay(300)
-                        step = 3
+                        viewModel.step = 3
                         visible.value = true
                     }
                 })
@@ -88,7 +100,7 @@ fun QuestionnaireScreen(onMoveScreen : (String) -> Unit) {
                     visible.value = false
                     coroutineScope.launch {
                         delay(300)
-                        step = 4
+                        viewModel.step = 4
                         visible.value = true
                     }
                 })
@@ -103,5 +115,5 @@ fun QuestionnaireScreen(onMoveScreen : (String) -> Unit) {
 @Preview
 @Composable
 fun Preview() {
-    QuestionnaireScreen(onMoveScreen = {})
+    QuestionnaireScreen(onMoveScreen = {},)
 }

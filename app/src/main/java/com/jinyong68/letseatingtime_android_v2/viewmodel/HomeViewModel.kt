@@ -28,6 +28,7 @@ class HomeViewModel @Inject constructor(
     val isLoading = mutableStateOf(false)
     val isError = mutableStateOf(false)
     val isAttend = mutableStateOf(false)
+    val modalVisibility = mutableStateOf(false)
     val mealList = mutableStateOf<List<MealResponseDto>>(emptyList())
     val workoutRecommend = mutableStateOf<List<WorkoutResponseDto>>(emptyList())
     val year = _date.year
@@ -103,9 +104,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun attendsRequest(data : String)  = viewModelScope.launch{
+    fun attendsRequest()  = viewModelScope.launch{
         try {
-            val response = userRepository.usersCheck(data)
+            val response = userRepository.usersCheck()
             Log.d("Attends", "출석 응답 $response")
         } catch (e : HttpException) {
             Log.d("Attends", "출석 실패 ${e.code()}")
