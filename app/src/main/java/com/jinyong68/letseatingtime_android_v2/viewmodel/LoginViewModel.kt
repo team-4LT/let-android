@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jinyong68.data.TokenManager
 import com.jinyong68.network.account.AccountRepository
 import com.jinyong68.network.dto.LoginRequestDto
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val tokenManager: TokenManager
 ) : ViewModel() {
     private val _id = mutableStateOf("")
     private val _password = mutableStateOf("")
@@ -45,8 +47,10 @@ class LoginViewModel @Inject constructor(
             )
 
             Log.d("Login", "서버 응답: $response")
-
             if (response.status == 200 || response.status == 201) {
+                tokenManager.saveAccessToken(response.data.accessToken)
+                tokenManager.saveRefreshToken(response.data.refreshToken)
+                tokenManager.saveAutoLoginStatus(true)
                 withContext(Dispatchers.Main) {
                     onSuccess()
                 }

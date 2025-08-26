@@ -1,8 +1,10 @@
 package com.jinyong68.network.user
 
 import com.jinyong68.network.dto.BaseResponseDto
+import com.jinyong68.network.dto.GetMeDto
 import com.jinyong68.network.dto.Meal
 import com.jinyong68.network.dto.ResponseDto
+import com.jinyong68.network.dto.Token
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -28,4 +30,7 @@ class UserRepositoryImpl @Inject constructor(
         return userApi.getMealAll()
     }
 
+    override suspend fun getMe(token: String): BaseResponseDto<GetMeDto> {
+        return userApi.getMe("Bearer $token")
+    }
 }

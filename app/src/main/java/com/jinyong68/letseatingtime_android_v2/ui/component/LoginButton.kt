@@ -23,7 +23,7 @@ import com.jinyong68.letseatingtime_android_v2.ui.theme.Main2
 
 @Composable
 fun LoginButton(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text: String,
     action: () -> Unit
 ) {

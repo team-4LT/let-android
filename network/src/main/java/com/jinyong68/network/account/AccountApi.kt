@@ -17,7 +17,7 @@ import retrofit2.http.Query
 
 interface AccountApi {
     @Headers("Auth: false")
-    @POST("auth/signup")
+    @POST("/auth/signup")
     suspend fun signup(@Body signupRequest: SignupRequestDto): BaseResponseDto<Nothing>
 
     @POST("/auth/login")
@@ -27,6 +27,6 @@ interface AccountApi {
 
 
     @Headers("Auth: false")
-    @POST("auth/refresh")
+    @POST("/auth/refresh")
     suspend fun refresh(@Header("Authorization") refreshToken: String): Response<ResponseDto<Token>>
 }
