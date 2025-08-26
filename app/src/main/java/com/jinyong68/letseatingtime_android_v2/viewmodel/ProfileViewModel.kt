@@ -20,7 +20,6 @@ class ProfileViewModel @Inject constructor(
     var me = mutableStateOf<GetMeDto?>(null)
         private set
 
-
     fun fetchMe(response: GetMeDto?) {
         me.value = response
     }
@@ -42,6 +41,12 @@ class ProfileViewModel @Inject constructor(
             }catch (error: Exception){
                 Log.e("에러", "dpfj")
             }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            tokenManager.deleteData()
         }
     }
 }
