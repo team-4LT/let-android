@@ -45,10 +45,9 @@ class TokenManager @Inject constructor(
         }
     }
 
-    suspend fun deleteData() {
-        context.loginCheckDataStore.edit { prefs -> prefs[LOGIN_CHECK] = false }
-        context.accessTokenDataStore.edit { prefs -> prefs[ACCESS_TOKEN] = "" }
-        context.refreshTokenDataStore.edit { prefs -> prefs[REFRESH_TOKEN] = "" }
+    suspend fun deleteData() {        context.loginCheckDataStore.edit { prefs -> prefs.remove(LOGIN_CHECK) }
+        context.accessTokenDataStore.edit { prefs -> prefs.remove(ACCESS_TOKEN) }
+        context.refreshTokenDataStore.edit { prefs -> prefs.remove(REFRESH_TOKEN) }
     }
 
     fun getAccessToken(): Flow<String> {

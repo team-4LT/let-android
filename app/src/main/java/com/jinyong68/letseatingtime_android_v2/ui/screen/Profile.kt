@@ -136,7 +136,10 @@ fun ProfileScreen(onMoveScreen : (String) -> Unit, viewModel: ProfileViewModel) 
                     containerColor = Main,
                     contentColor = White
                 ),
-                onClick = {onMoveScreen(ScreenNavigate.LOGIN.name)},
+                onClick = {
+                    viewModel.logout()
+                    onMoveScreen(ScreenNavigate.LOGIN.name)
+                  },
             ) {
                 Text(text = "로그아웃", style = AppTypography.titleLarge)
             }
