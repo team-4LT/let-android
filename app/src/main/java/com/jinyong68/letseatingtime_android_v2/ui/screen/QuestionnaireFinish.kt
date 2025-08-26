@@ -16,34 +16,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 
 @Composable
 fun QuestionnaireFinishScreen(onMoveScreen : (String) -> Unit) {
-    Column(
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Bg)
             .statusBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(104.dp)
+        contentAlignment = Alignment.Center // 중앙 정렬
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(104.dp) // 아이템 간 간격
         ) {
             Text(
                 text = "설문에 참여해 주셔서\n감사합니다",
                 style = AppTypography.displayLarge,
                 color = Black,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
             )
             Button(
                 modifier = Modifier
@@ -54,10 +58,18 @@ fun QuestionnaireFinishScreen(onMoveScreen : (String) -> Unit) {
                     containerColor = Main,
                     contentColor = White
                 ),
-                onClick = { onMoveScreen(ScreenNavigate.HOME.name) },
+                onClick = {
+                    onMoveScreen(ScreenNavigate.HOME.name)
+                  },
             ) {
                 Text(text = "홈으로", style = AppTypography.titleLarge)
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun priview() {
+    QuestionnaireFinishScreen(onMoveScreen = {})
 }

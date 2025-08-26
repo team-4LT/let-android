@@ -2,8 +2,10 @@ package com.jinyong68.letseatingtime_android_v2.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,6 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -83,6 +87,44 @@ fun Home(
                 modifier = modifier
                     .height(60.dp)
             )
+        }
+    }
+    if (viewModel.modalVisibility.value) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.Black.copy(alpha = 0.5f))
+                .clickable { viewModel.modalVisibility.value = false },
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.White)
+                    .padding(24.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.check),
+                        contentDescription = "nfc",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(48.dp)
+                    )
+                    androidx.compose.material3.Text(
+                        text = "NFC 태그를 기기에 가까이 대주세요",
+                        style = com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography.headlineSmall
+                    )
+                    androidx.compose.material3.Text(
+                        text = "인식될 때까지 기다려주세요",
+                        style = com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography.bodyMedium
+                    )
+                }
+            }
         }
     }
 }

@@ -22,16 +22,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jinyong68.letseatingtime_android_v2.ScreenNavigate
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main2
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.QuestionnaireViewModel
 
 @Composable
 fun WorstMealVoteScreen (onMoveScreen: (String) -> Unit) {
-    val mealList = listOf("흑미밥", "맑은한우샤브샤브", "봉추찜닭", "열무된장무침", "배추김치", "바이오제로요구르트")
+    val viewModel : QuestionnaireViewModel = hiltViewModel()
+    val mealList = viewModel.nowMeal.menus
     val selectedIndices = remember { mutableStateListOf<Int>() }
 
     Box(
@@ -75,8 +78,8 @@ fun WorstMealVoteScreen (onMoveScreen: (String) -> Unit) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.align(Alignment.Center)
                 ) {
-                    mealList.forEachIndexed { index, text ->
-                        val isSelected = index in selectedIndices
+                    mealList.forEachIndexed { manuId, menuName ->
+                        val isSelected = manuId in selectedIndices
                         Button(
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
@@ -88,11 +91,11 @@ fun WorstMealVoteScreen (onMoveScreen: (String) -> Unit) {
                                 contentColor = if (isSelected) White else Main2,
                             ),
                             onClick = {
-                                if (isSelected) selectedIndices.remove(index)
-                                else selectedIndices.add(index)
+                                if (isSelected) selectedIndices.remove(manuId)
+                                else selectedIndices.add(manuId)
                             }
                         ) {
-                            Text(text = text, style = AppTypography.titleMedium)
+                            Text(text = menuName.menuName, style = AppTypography.titleMedium)
                         }
                     }
                 }
@@ -117,7 +120,9 @@ fun WorstMealVoteScreen (onMoveScreen: (String) -> Unit) {
                         contentColor = White
                     ),
                     onClick = {
-                        val selectedMeals = selectedIndices.map { mealList[it] }
+                        for (i in selectedIndices) {
+                            viewModel.voteMineMenu(i)
+                        }
                         onMoveScreen(ScreenNavigate.QUESTIONNAIREFINISH.name)
                     }
                 ) {

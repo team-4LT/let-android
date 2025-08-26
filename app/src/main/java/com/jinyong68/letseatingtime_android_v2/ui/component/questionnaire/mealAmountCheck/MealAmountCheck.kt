@@ -21,18 +21,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main2
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.QuestionnaireViewModel
+import com.jinyong68.network.dto.MealAmountDto
 
 @Composable
 fun MealAmountCheckScreen( onNext : () -> Unit ) {
 
     val mealAmountList = listOf("적음", "적당함", "많음")
+    val mealAmountList2 = listOf("FEW", "SUITABLE", "MUCH")
     val selectedIndex = remember { mutableIntStateOf(-1) } // 아무것도 선택되지 않은 상태
 
+    val viewModel : QuestionnaireViewModel = hiltViewModel()
 
     Box(
         Modifier.fillMaxSize().background(Bg)
@@ -92,7 +97,10 @@ fun MealAmountCheckScreen( onNext : () -> Unit ) {
                         containerColor = Main,
                         contentColor = White
                     ),
-                    onClick = onNext,
+                    onClick = {
+                        viewModel.sendMealAmount(MealAmountDto(viewModel.nowMeal.mealId,mealAmountList2[selectedIndex.intValue]))
+                        onNext()
+                      },
                 ) {
                     Text(text = "다음", style = AppTypography.titleLarge)
                 }

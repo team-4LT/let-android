@@ -8,23 +8,27 @@ import com.jinyong68.network.dto.LoginRequestDto
 import com.jinyong68.network.dto.MealResponseDto
 import com.jinyong68.network.dto.WorkoutResponseDto
 import com.jinyong68.network.meal.MealRepository
+import com.jinyong68.network.user.UserRepository
 import com.jinyong68.network.workout.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val mealRepository: MealRepository,
-    private val workoutRepository: WorkoutRepository
+    private val workoutRepository: WorkoutRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
     val _date = LocalDate.now()
     val isLoading = mutableStateOf(false)
     val isError = mutableStateOf(false)
     val isAttend = mutableStateOf(false)
+    val modalVisibility = mutableStateOf(false)
     val mealList = mutableStateOf<List<MealResponseDto>>(emptyList())
     val workoutRecommend = mutableStateOf<List<WorkoutResponseDto>>(emptyList())
     val year = _date.year
@@ -97,6 +101,15 @@ class HomeViewModel @Inject constructor(
             isError.value = true
         } finally {
             isLoading.value = false
+        }
+    }
+
+    fun attendsRequest()  = viewModelScope.launch{
+        try {
+            val response = userRepository.usersCheck()
+            Log.d("Attends", "출석 응답 $response")
+        } catch (e : HttpException) {
+            Log.d("Attends", "출석 실패 ${e.code()}")
         }
     }
 }

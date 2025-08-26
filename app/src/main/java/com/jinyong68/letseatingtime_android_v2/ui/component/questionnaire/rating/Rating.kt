@@ -1,5 +1,7 @@
 package com.jinyong68.letseatingtime_android_v2.ui.component.questionnaire.rating
 
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,15 +23,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.gson.Gson
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Bg
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Main
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
+import com.jinyong68.letseatingtime_android_v2.viewmodel.QuestionnaireViewModel
+import com.jinyong68.network.dto.MealRating
+import kotlin.getValue
 
 @Composable
 fun RatingScreen(onNext : () -> Unit ) {
 
     var currentRating by remember { mutableIntStateOf(0) }
+
+    val viewModel : QuestionnaireViewModel = hiltViewModel()
+
+    val gson = Gson()
 
     Box(
         Modifier.fillMaxSize().background(Bg)
@@ -72,7 +84,11 @@ fun RatingScreen(onNext : () -> Unit ) {
                         containerColor = Main,
                         contentColor = White
                     ),
-                    onClick = onNext,
+                    onClick = {
+                        viewModel.sendUserRating(MealRating(viewModel.nowMeal.mealId,currentRating))
+                        Log.d("req","${gson.toJson(MealRating(viewModel.nowMeal.mealId,currentRating))}")
+                        onNext()
+                      },
                 ) {
                     Text(text = "다음", style = AppTypography.titleLarge)
                 }

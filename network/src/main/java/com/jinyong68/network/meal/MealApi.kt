@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface MealApi {
-    @GET("mealMenu/daily/{date}")
+    @GET("/mealMenu/daily/{date}")
     suspend fun menu(
         @Path("date") date: String
     ): BaseResponseDto<List<MealResponseDto>>
