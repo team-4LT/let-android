@@ -14,19 +14,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jinyong68.letseatingtime_android_v2.ui.component.Workout.WorkoutCard
 import com.jinyong68.letseatingtime_android_v2.ui.theme.AppTypography
 import com.jinyong68.letseatingtime_android_v2.ui.theme.Black
 import com.jinyong68.letseatingtime_android_v2.ui.theme.White
+import com.jinyong68.letseatingtime_android_v2.viewmodel.HomeViewModel
 import com.jinyong68.letseatingtime_android_v2.viewmodel.WorkoutViewModel
+import com.jinyong68.network.dto.Exercise
 import com.jinyong68.network.dto.WorkoutResponseDto
 
 @Composable
 fun WorkoutTable(
-    data: List<WorkoutResponseDto>,
+    data: List<Exercise>,
     viewModel: WorkoutViewModel,
     onMoveScreen: (String) -> Unit
 ){
+    val homeViewModel : HomeViewModel = hiltViewModel()
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +50,7 @@ fun WorkoutTable(
                 color = Black
             )
             Text(
-                text = "오늘은 00kcal섭취 하셨네요! 이 운동을 통해 00만큼 운동해 보아요!",
+                text = homeViewModel.message.value,
                 style = AppTypography.labelLarge,
                 color = Black
             )
@@ -57,8 +61,17 @@ fun WorkoutTable(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ){ // 카드 Column
             data.forEach { it ->
+                val exercise = WorkoutResponseDto(
+                    id = it.id,
+                    title = it.title,
+                    description = it.description,
+                    method = it.method,
+                    calorie = it.expected_calories,
+                    duration = it.recommended_duration,
+                    category = it.category,
+                )
                 WorkoutCard(
-                    data = it,
+                    data = exercise,
                     viewModel = viewModel,
                     onMoveScreen = onMoveScreen
                 )

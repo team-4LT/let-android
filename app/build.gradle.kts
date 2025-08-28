@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    kotlin("plugin.serialization") version "1.9.0" // 버전 확인
 }
 
 android {
@@ -93,4 +94,9 @@ dependencies {
         // Kotlin coroutines
         implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
         implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    implementation("io.ktor:ktor-client-core:2.3.3")
+    implementation("io.ktor:ktor-client-okhttp:2.3.3")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.3")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
 }

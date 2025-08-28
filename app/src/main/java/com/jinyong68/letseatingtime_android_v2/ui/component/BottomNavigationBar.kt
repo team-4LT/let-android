@@ -55,7 +55,7 @@ fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .height(100.dp)
             .navigationBarsPadding().drawBehind {
                 drawLine(
                     color = Gray,

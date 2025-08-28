@@ -45,7 +45,8 @@ class TokenManager @Inject constructor(
         }
     }
 
-    suspend fun deleteData() {        context.loginCheckDataStore.edit { prefs -> prefs.remove(LOGIN_CHECK) }
+    suspend fun deleteData() {
+        context.loginCheckDataStore.edit { prefs -> prefs.remove(LOGIN_CHECK) }
         context.accessTokenDataStore.edit { prefs -> prefs.remove(ACCESS_TOKEN) }
         context.refreshTokenDataStore.edit { prefs -> prefs.remove(REFRESH_TOKEN) }
     }

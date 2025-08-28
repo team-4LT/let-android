@@ -6,9 +6,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jinyong68.di.Constant.AI_BASE_URL
+import com.jinyong68.network.dto.BaseResponseDto
 import com.jinyong68.network.dto.WorkoutResponseDto
 import com.jinyong68.network.workout.WorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.get
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

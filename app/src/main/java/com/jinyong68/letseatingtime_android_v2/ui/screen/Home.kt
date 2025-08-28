@@ -35,11 +35,6 @@ fun Home(
     viewModel: HomeViewModel,
     workoutViewModel: WorkoutViewModel
 ) {
-    LaunchedEffect(Unit) {
-        viewModel.fetchMenu()
-//        viewModel.fetchWorkoutRecommend()
-    }
-
     val clickedDay = remember { mutableStateOf(LocalDate.now().dayOfMonth) }
     val clickedDayOfWeek = remember { mutableStateOf(LocalDate.now().dayOfWeek) }
     val scrollState = rememberScrollState()
@@ -67,7 +62,7 @@ fun Home(
             Column(
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
-                WarningTable(time = "점심", meal = "피자", allergy = "우유")
+//                WarningTable(time = "점심", meal = "피자", allergy = "우유")
                 MealScanCard(viewModel)
                 MealTable(
                     viewModel = viewModel,
