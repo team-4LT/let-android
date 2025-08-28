@@ -5,5 +5,4 @@ import com.jinyong68.network.dto.WorkoutResponseDto
 
 interface WorkoutRepository {
     suspend fun workoutList(): BaseResponseDto<List<WorkoutResponseDto>>
-    suspend fun workoutRecommend(): BaseResponseDto<List<WorkoutResponseDto>>
 }

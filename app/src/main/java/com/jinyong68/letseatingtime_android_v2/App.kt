@@ -33,10 +33,10 @@ enum class ScreenNavigate {
 @Composable
 fun App(navController: NavHostController) {
     var showBottomNav by remember { mutableStateOf(true) }
-
     val workoutViewModel: WorkoutViewModel = hiltViewModel()
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         modifier = Modifier.fillMaxSize(),
         containerColor = Bg,
         bottomBar = {

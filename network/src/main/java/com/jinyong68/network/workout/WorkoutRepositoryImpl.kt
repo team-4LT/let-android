@@ -10,7 +10,4 @@ class WorkoutRepositoryImpl @Inject constructor(
     override suspend fun workoutList(): BaseResponseDto<List<WorkoutResponseDto>> {
         return workoutApi.workoutList()
     }
-    override suspend fun workoutRecommend(): BaseResponseDto<List<WorkoutResponseDto>> {
-        return workoutApi.workoutRecommend()
-    }
 }
